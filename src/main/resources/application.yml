@@ -1,0 +1,6 @@
+pring:
+  application:
+    name: peakycake
+  jackson:
+    serializazion:
+      WRITE_DATES_AS_TIMESTAMPS : false
