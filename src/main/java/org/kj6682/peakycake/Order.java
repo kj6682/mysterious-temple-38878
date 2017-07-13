@@ -15,9 +15,8 @@ import java.time.LocalDate;
 
 /**
  * Created by luigi on 12/07/2017.
- *
+ * <p>
  * THE model (use this to make business)
- *
  */
 
 @Data
@@ -27,6 +26,8 @@ class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String shop;
 
     private String cake;
 
@@ -45,18 +46,21 @@ class Order {
     private String status;
 
 
-    public Order(String cake,
+    public Order(String shop,
+                 String cake,
                  String message,
                  LocalDate since,
                  LocalDate due,
                  String status) {
 
+        Assert.notNull(shop, "an order needs a shop");
         Assert.notNull(cake, "an order needs a cake");
         Assert.notNull(message, "an order needs a message");
         Assert.notNull(since, "an order needs an origin date");
         Assert.notNull(due, "an order needs an due date");
         Assert.notNull(status, "an order needs an state");
 
+        this.shop = shop;
         this.cake = cake;
         this.message = message;
         this.created = since;

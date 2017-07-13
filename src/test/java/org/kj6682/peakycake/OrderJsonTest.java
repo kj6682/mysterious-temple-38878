@@ -28,7 +28,8 @@ public class OrderJsonTest {
 
     @Test
     public void serialise() throws Exception{
-        Order order = new Order("peaky cake",
+        Order order = new Order("north",
+                "peaky cake",
                 "peaky cake customizable message",
                 LocalDate.of(2017,7,13),
                 LocalDate.of(2017,8,7),
