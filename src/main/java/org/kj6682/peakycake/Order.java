@@ -1,7 +1,10 @@
 package org.kj6682.peakycake;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
+import org.kj6682.commons.LocalDateDeserializer;
+import org.kj6682.commons.LocalDateSerializer;
 import org.springframework.util.Assert;
 
 import javax.persistence.Entity;
@@ -16,7 +19,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-public class Order {
+class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
