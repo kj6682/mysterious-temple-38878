@@ -1,4 +1,4 @@
-package org.kg6682.peakycake;
+package org.kj6682.peakycake;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

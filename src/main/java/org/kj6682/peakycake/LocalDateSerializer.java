@@ -1,4 +1,4 @@
-package org.kg6682.peakycake;
+package org.kj6682.peakycake;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;

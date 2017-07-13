@@ -1,10 +1,9 @@
-package org.kg6682.peakycake;
+package org.kj6682.peakycake;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @RestController
 public class GreetingController {

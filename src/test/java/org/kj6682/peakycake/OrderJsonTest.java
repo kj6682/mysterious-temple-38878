@@ -1,4 +1,4 @@
-package org.kg6682.peakycake;
+package org.kj6682.peakycake;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.ResourceUtils;
 
-import javax.swing.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,15 +35,8 @@ public class OrderJsonTest {
                 "NEW");
 
         System.out.println(this.json.write(order));
-/*
-        assertThat(this.json.write(order)).isEqualTo(
-                "{\n" +
-                "  \"cake\" : \"peaky cake\",\n" +
-                "  \"message\": \"peaky cake customizable message\",\n" +
-                "  \"since\" : \"2017-07-13\",\n" +
-                "  \"due\" : \"2017-08-07\",\n" +
-                "  \"status\": \"NEW\"\n" +
-                "}");
-*/
+        assertThat(this.json.write(order)).isEqualTo(ResourceUtils.getFile("classpath:order.json"));
     }
+
+
 }

@@ -1,4 +1,4 @@
-package org.kg6682.peakycake;
+package org.kj6682.peakycake;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
