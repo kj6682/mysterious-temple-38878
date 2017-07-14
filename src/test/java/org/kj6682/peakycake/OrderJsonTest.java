@@ -25,32 +25,34 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class OrderJsonTest {
 
     Order order;
+    File jsonFile;
+
     @Autowired
     private JacksonTester<Order> json;
 
     @Before
-    public void setup() {
+    public void setup() throws Exception{
         order = new Order("north",
                 "peaky cake",
                 "peaky cake customizable message",
                 LocalDate.of(2017, 7, 13),
                 LocalDate.of(2017, 8, 7),
                 "NEW");
+        jsonFile = ResourceUtils.getFile("classpath:order.json");
 
     }
 
     @Test
     public void serialise() throws Exception {
 
-        System.out.println(this.json.write(order));
-        assertThat(this.json.write(order)).isEqualTo(ResourceUtils.getFile("classpath:order.json"));
+        assertThat(this.json.write(order)).isEqualTo(jsonFile);
+
     }
 
     @Test
     public void deserialise() throws Exception {
 
-        File file = ResourceUtils.getFile("classpath:order.json");
-        String jsonObject = new String(Files.readAllBytes(file.toPath()));
+        String jsonObject = new String(Files.readAllBytes(jsonFile.toPath()));
         Order newOrder = this.json.parse(jsonObject).getObject();
         assertThat(newOrder.equals(order));
 

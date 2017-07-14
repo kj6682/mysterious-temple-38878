@@ -44,6 +44,14 @@ class OrderController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
+    @PutMapping(value = "/{shop}/orders")
+    ResponseEntity<?>  updateStatus(@PathVariable String shop, @RequestBody Order order) {
+        Assert.notNull(shop,"shop can not be null");
+        Assert.notNull(order, "Order can not be empty");
+        Order result = orderRepository.save(order);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     private static class OrderNotFoundException extends RuntimeException{
         OrderNotFoundException(String userId) {
             super("could not find order '" + userId + "'.");

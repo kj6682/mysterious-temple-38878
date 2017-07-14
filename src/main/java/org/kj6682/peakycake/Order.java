@@ -3,6 +3,7 @@ package org.kj6682.peakycake;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
+import lombok.Setter;
 import org.kj6682.commons.LocalDateDeserializer;
 import org.kj6682.commons.LocalDateSerializer;
 import org.springframework.util.Assert;

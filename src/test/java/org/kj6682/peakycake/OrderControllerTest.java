@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
@@ -14,6 +16,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.io.IOException;
@@ -30,6 +33,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.Assert.*;
@@ -139,7 +143,7 @@ public class OrderControllerTest {
         return mockHttpOutputMessage.getBodyAsString();
     }
 
-    
+
     @Test
     public void createNewOrder() throws Exception {
 
@@ -157,7 +161,25 @@ public class OrderControllerTest {
 
 
     @Test
-    public void updateOrder() {
+    public void updateOrderStatus() throws Exception{
+        Order order = new Order("North","cake","message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
+        String orderJson = json(order);
+
+        given(this.orderRepository.save(order)).will(new Answer<Order>() {
+            @Override
+            public Order answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                Order order1 = ((Order)args[0]);
+                order1.setStatus("DONE");
+                return  order1;
+            };
+        });
+
+        this.mvc.perform(put("/api/{shop}/orders", "north")
+                .contentType(contentType).content(orderJson))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("DONE"));;
+
 
     }
 

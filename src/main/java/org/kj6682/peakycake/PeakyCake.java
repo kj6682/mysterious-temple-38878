@@ -40,6 +40,7 @@ class PeakyCake {
 
     private String status;
 
+    protected PeakyCake(){}
 
     public PeakyCake(String cake,
                      String label,

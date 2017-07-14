@@ -1,5 +1,6 @@
 package org.kj6682.peakycake;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,16 +28,31 @@ public class PeakyCakeJsonTest {
     @Autowired
     private JacksonTester<PeakyCake> json;
 
-    @Test
-    public void serialise() throws Exception{
-        PeakyCake cake = new PeakyCake("peaky cake",
+    PeakyCake cake;
+
+    File jsonFile;
+
+    @Before
+    public void setup() throws Exception{
+        cake = new PeakyCake("peaky cake",
                 "peaky cake customizable message",
                 LocalDate.of(2017,7,13),
                 "RUNNING");
+        jsonFile = ResourceUtils.getFile("classpath:peakycake.json");
 
-        System.out.println(this.json.write(cake));
-        assertThat(this.json.write(cake)).isEqualTo(ResourceUtils.getFile("classpath:peakycake.json"));
     }
+    @Test
+    public void serialise() throws Exception{
 
+        assertThat(this.json.write(cake)).isEqualTo(jsonFile);
+    }
+    @Test
+    public void deserialise() throws Exception {
+
+        String jsonObject = new String(Files.readAllBytes(jsonFile.toPath()));
+        PeakyCake newCake = this.json.parse(jsonObject).getObject();
+        assertThat(newCake.equals(cake));
+
+    }
 
 }
