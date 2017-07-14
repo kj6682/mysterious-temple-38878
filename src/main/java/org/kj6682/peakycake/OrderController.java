@@ -28,6 +28,19 @@ class OrderController {
 
     }
 
+    @PutMapping(value = "/orders/{id}")
+    ResponseEntity<?>  updateStatus(@PathVariable(required = true) Long id) {
+
+        Order result = orderRepository.findById(id).orElseThrow(()->new OrderNotFoundException(String.valueOf(id)));
+        result.setStatus("DONE");
+        result = orderRepository.save(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/orders/{id}")
+    void deleteOrder(@PathVariable(required = true) Long id){
+        orderRepository.delete(id);
+    }
 
     @GetMapping(value = "/{shop}/orders")
     List<Order> listShopOrders(@PathVariable String shop){
@@ -38,19 +51,15 @@ class OrderController {
 
     @PostMapping(value = "/{shop}/orders")
     ResponseEntity<?>  create(@PathVariable String shop, @RequestBody Order order) {
+
         Assert.notNull(shop,"shop can not be null");
         Assert.notNull(order, "Order can not be empty");
+        Assert.isTrue(order.getShop().equals(shop), "shops must be coherent");
+
         Order result = orderRepository.save(order);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/{shop}/orders")
-    ResponseEntity<?>  updateStatus(@PathVariable String shop, @RequestBody Order order) {
-        Assert.notNull(shop,"shop can not be null");
-        Assert.notNull(order, "Order can not be empty");
-        Order result = orderRepository.save(order);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
 
     private static class OrderNotFoundException extends RuntimeException{
         OrderNotFoundException(String userId) {
@@ -67,5 +76,11 @@ class OrderController {
         public List<Order> handleConflict() {
             return new LinkedList<Order>();
         }
+
+
+        @ResponseBody
+        @ExceptionHandler(java.lang.IllegalArgumentException.class)
+        public ResponseEntity<?> handleConflictIllegalArgument() {return new ResponseEntity<>("Illegal Arguments", HttpStatus.FORBIDDEN);}
+
     }
 }

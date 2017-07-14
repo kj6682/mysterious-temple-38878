@@ -30,10 +30,12 @@ import java.util.Optional;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.Assert.*;
@@ -55,7 +57,7 @@ public class OrderControllerTest {
     @MockBean
     private OrderRepository orderRepository;
 
-    private List orderList;
+    private List<Order> orderList;
 
     @Before
     public void setup() {
@@ -136,6 +138,7 @@ public class OrderControllerTest {
         assertNotNull("the JSON message converter must not be null",
                 this.mappingJackson2HttpMessageConverter);
     }
+
     protected String json(Object o) throws IOException {
         MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
         this.mappingJackson2HttpMessageConverter.write(
@@ -147,23 +150,40 @@ public class OrderControllerTest {
     @Test
     public void createNewOrder() throws Exception {
 
-        Order order = new Order("North","cake","message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
+        Order order = orderList.get(0);
         String orderJson = json(order);
 
         given(this.orderRepository.save(order)).willReturn(order);
 
 
-        this.mvc.perform(post("/api/{shop}/orders", "north")
+        this.mvc.perform(post("/api/{shop}/orders", "North")
                 .contentType(contentType).content(orderJson))
                 .andExpect(status().isCreated());
 
     }
 
+    @Test
+    public void createNewOrderFail() throws Exception {
+
+        Order order = orderList.get(0);
+        String orderJson = json(order);
+
+        given(this.orderRepository.save(order)).willReturn(order);
+
+
+        this.mvc.perform(post("/api/{shop}/orders", "South")
+                .contentType(contentType).content(orderJson))
+                .andExpect(status().isForbidden());
+
+    }
 
     @Test
     public void updateOrderStatus() throws Exception{
-        Order order = new Order("North","cake","message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
+
+        Order order = orderList.get(0);
         String orderJson = json(order);
+
+        given(this.orderRepository.findById(anyLong())).willReturn(Optional.of(order));
 
         given(this.orderRepository.save(order)).will(new Answer<Order>() {
             @Override
@@ -175,7 +195,7 @@ public class OrderControllerTest {
             };
         });
 
-        this.mvc.perform(put("/api/{shop}/orders", "north")
+        this.mvc.perform(put("/api/orders/{id}", 1L)
                 .contentType(contentType).content(orderJson))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("DONE"));;
@@ -184,7 +204,11 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void deleteOrder() {
+    public void deleteOrder() throws Exception{
+
+        this.mvc.perform(delete("/api/orders/{id}", 1L)
+                .contentType(contentType).content("{'id':1}"))
+                .andExpect(status().isOk());
 
     }
 
