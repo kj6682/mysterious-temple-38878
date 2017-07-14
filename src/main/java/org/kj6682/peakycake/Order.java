@@ -1,5 +1,6 @@
 package org.kj6682.peakycake;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
@@ -21,7 +22,7 @@ import java.time.LocalDate;
  */
 
 @Data
-@Entity
+@Entity(name="peakyorder")
 class Order {
 
     @Id
