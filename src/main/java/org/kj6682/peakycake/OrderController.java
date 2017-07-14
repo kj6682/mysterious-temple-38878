@@ -3,6 +3,7 @@ package org.kj6682.peakycake;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,11 +37,11 @@ class OrderController {
     }
 
     @PostMapping(value = "/{shop}/orders")
-    void create(@PathVariable String shop, @RequestBody Order order) {
+    ResponseEntity<?>  create(@PathVariable String shop, @RequestBody Order order) {
         Assert.notNull(shop,"shop can not be null");
         Assert.notNull(order, "Order can not be empty");
-        orderRepository.save(order);
-
+        Order result = orderRepository.save(order);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     private static class OrderNotFoundException extends RuntimeException{

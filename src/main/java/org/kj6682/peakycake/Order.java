@@ -45,6 +45,7 @@ class Order {
 
     private String status;
 
+    protected Order(){};
 
     public Order(String shop,
                  String cake,

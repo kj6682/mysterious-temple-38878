@@ -1,5 +1,6 @@
 package org.kj6682.peakycake;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,12 +9,17 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import static org.junit.Assert.*;
 /**
  * Created by luigi on 13/07/2017.
  */
@@ -51,11 +57,7 @@ public class OrderControllerTest {
     public void setup() {
         orderList = new LinkedList<Order>();
         for (int i = 0; i < 10; i++) {
-            orderList.add(new Order("North","cake : " + i,
-                    "message : " + i,
-                    LocalDate.now(),
-                    LocalDate.now().plusDays(10),
-                    "NEW"));
+            orderList.add(new Order("North","cake : " + i,"message : " + i, LocalDate.now(), LocalDate.now().plusDays(10), "NEW"));
         }
     }
 
@@ -117,9 +119,42 @@ public class OrderControllerTest {
 
     }
 
-    @Test
-    public void createNewOrder() throws Exception{
+    private HttpMessageConverter mappingJackson2HttpMessageConverter;
+
+    @Autowired
+    void setConverters(HttpMessageConverter<?>[] converters) {
+
+        this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream()
+                .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
+                .findAny()
+                .orElse(null);
+
+        assertNotNull("the JSON message converter must not be null",
+                this.mappingJackson2HttpMessageConverter);
     }
+    protected String json(Object o) throws IOException {
+        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
+        this.mappingJackson2HttpMessageConverter.write(
+                o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
+        return mockHttpOutputMessage.getBodyAsString();
+    }
+
+    
+    @Test
+    public void createNewOrder() throws Exception {
+
+        Order order = new Order("North","cake","message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
+        String orderJson = json(order);
+
+        given(this.orderRepository.save(order)).willReturn(order);
+
+
+        this.mvc.perform(post("/api/{shop}/orders", "north")
+                .contentType(contentType).content(orderJson))
+                .andExpect(status().isCreated());
+
+    }
+
 
     @Test
     public void updateOrder() {
