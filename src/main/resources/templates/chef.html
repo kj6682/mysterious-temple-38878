@@ -30,28 +30,18 @@
         <p th:text="'Hello, ' + ${name} + '!'" />
 
 
-        <form class="form-horizontal" id="search-all-form">
 
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" id="bth-search-all"
-                            class="btn btn-primary btn-lg">Search All
-                    </button>
-                </div>
-            </div>
-        </form>
-
-        <form class="form-horizontal" id="search-shop-form">
+        <form class="form-horizontal" id="search-form">
             <div class="form-group form-group-lg">
                 <label class="col-sm-2 control-label">shop</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="shop"/>
+                    <input type="text" class="form-control" id="shop" value="all"/>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" id="bth-search-shop"
+                    <button type="submit" id="bth-search"
                             class="btn btn-primary btn-lg">Search shop
                     </button>
                 </div>

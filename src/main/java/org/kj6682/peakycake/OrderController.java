@@ -45,6 +45,7 @@ class OrderController {
     @GetMapping(value = "/{shop}/orders")
     List<Order> listShopOrders(@PathVariable String shop){
         Assert.notNull(shop,"shop can not be null");
+
         return orderRepository.findByShop(shop)
                 .orElseThrow(()-> new OrderNotFoundException(shop));
     }
