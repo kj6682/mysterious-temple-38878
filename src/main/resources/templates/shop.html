@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>the CHEF workstation</title>
+    <title>the SHOP workstation</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <link href="/css/peakycake.css" rel="stylesheet"/>
@@ -33,18 +33,14 @@
 <div class="container" style="min-height: 500px">
 
     <div>
-        <h1>the CHEF workstation</h1>
-
-        <p th:text="'Hello, ' + ${name} + '!'" />
-
+        <h1 th:text="${#strings.toUpperCase(name)} + ' shop workstation'" />
         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-
 
         <form class="form-horizontal" id="search-form">
             <div class="form-group form-group-lg">
                 <label class="col-sm-2 control-label">search for </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="shop" value="all"/>
+                    <input type="text" class="form-control" id="shop" th:value="${name}"/>
                 </div>
             </div>
 
@@ -69,7 +65,6 @@
     </div>
 </footer>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
