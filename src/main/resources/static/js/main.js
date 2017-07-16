@@ -68,8 +68,8 @@ function search_submit() {
                     '<td>' + data[i].cake + '</td><td>' + data[i].quantity + '</td>'+
                     '<td>' + data[i].message + '</td><td>' + data[i].created + '</td>'+
                     '<td>' + data[i].due + '</td><td>' + data[i].status + '</td>'+
-                    '<td><button type="button" class="btn btn-default js-validate"> <span class="glyphicon glyphicon-ok-circle" mytarget=' + data[i].id + '></span></button></td>'+
-                    '<td><button type="button" class="btn btn-default js-delete"> <span class="glyphicon glyphicon-remove-circle" mytarget=' + data[i].id + '></span></button></td>'+
+                    '<td><button type="button" class="btn btn-default js-validate glyphicon glyphicon-ok-circle" mytarget=' + data[i].id + '></button></td>'+
+                    '<td><button type="button" class="btn btn-default js-delete glyphicon glyphicon-remove-circle" mytarget=' + data[i].id + '></button></td>'+
                     +'</tr>';
             });
 
