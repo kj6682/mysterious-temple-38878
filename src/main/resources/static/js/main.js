@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     $("#search-form").submit(function (event) {
@@ -18,11 +19,24 @@ $(document).ready(function () {
 
     });
 
+    $(document).on("click", '.js-validate', function(event) {
+        var my = event.target.getAttribute("mytarget");
+        console.log(my);
+    });
+
+    $(document).on("click", '.js-delete', function(event) {
+        console.log(event.target.getAttribute("mytarget"));
+    });
+
+
+
 });
 
 function search_submit() {
 
-    var search = {}
+    var DEBUG_json = false;
+
+    var search = {};
     search["shop"] = $("#search-form-shop").val();
     if(search.shop === "all"){
         search["shop"] = "";
@@ -39,9 +53,27 @@ function search_submit() {
         timeout: 600000,
         success: function (data) {
 
-            var json = "<h4>Ajax Response</h4><pre>"
-                + JSON.stringify(data, null, 4) + "</pre>";
-            $('#feedback').html(json);
+            if(DEBUG_json) {
+                var json = "<h4>Ajax Response</h4><pre>"
+                    + JSON.stringify(data, null, 4) + "</pre>";
+                $('#feedback').html(json);
+            }
+
+            var trHTML = '';
+
+            $.each(data, function (i, item) {
+
+                trHTML += '<tr>'+
+                    '<td>' + data[i].id + '</td><td>' + data[i].shop + '</td>'+
+                    '<td>' + data[i].cake + '</td><td>' + data[i].quantity + '</td>'+
+                    '<td>' + data[i].message + '</td><td>' + data[i].created + '</td>'+
+                    '<td>' + data[i].due + '</td><td>' + data[i].status + '</td>'+
+                    '<td><button type="button" class="btn btn-default js-validate"> <span class="glyphicon glyphicon-ok-circle" mytarget=' + data[i].id + '></span></button></td>'+
+                    '<td><button type="button" class="btn btn-default js-delete"> <span class="glyphicon glyphicon-remove-circle" mytarget=' + data[i].id + '></span></button></td>'+
+                    +'</tr>';
+            });
+
+            $('#cakeTable').html(trHTML);
 
             console.log("SUCCESS : ", data);
             $("#btn-search").prop("disabled", false);

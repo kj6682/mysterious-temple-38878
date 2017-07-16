@@ -39,7 +39,6 @@
 
         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
 
-
         <form id="search-form" class="form-horizontal">
             <div class="input-group">
                 <div class="input-group-btn">
@@ -52,8 +51,27 @@
 
             </div>
         </form>
-        <div id="feedback"></div>
 
+        <div id="feedback"></div>
+        <div id="cakes" class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>shop</th>
+                    <th>cake</th>
+                    <th>quantity</th>
+                    <th>message</th>
+                    <th>createdOn</th>
+                    <th>dueOn</th>
+                    <th>status</th>
+                </tr>
+                </thead>
+                <tbody id="cakeTable">
+                <!-- cakes go here -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </div>
