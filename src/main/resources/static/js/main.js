@@ -62,22 +62,14 @@ function search_submit() {
 }
 
 function create_submit() {
+
     var order = {};
     order["shop"] = $("#create-form-shop").val();
     order["cake"] = $("#create-form-cake").val();
     order["quantity"] = $("#create-form-quantity").val();
     order["message"] = $("#create-form-message").val();
-
-    var created = new Date();
-    var yyyy = created.getFullYear();
-    var dd = created.getDate();
-    dd = (dd.toString().length > 1)? dd : '0' + dd;
-    var MM =  created.getMonth() + 1;
-    MM = (MM.toString().length > 1)? MM : '0'+ MM;
-    created = yyyy + "-" + MM + "-" + dd;
-    order["created"] = created;
-
-    order["due"] = $("#create-form-due").val();
+    order["created"] = $("#create-form-createdOn").val();
+    order["due"] = $("#create-form-dueOn").val();
     order["status"] = "NEW";
 
     $("#btn-create").prop("disabled", true);

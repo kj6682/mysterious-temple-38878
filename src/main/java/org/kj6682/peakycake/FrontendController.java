@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
 @Controller
 public class FrontendController {
 
@@ -24,6 +28,8 @@ public class FrontendController {
     @RequestMapping("/shop/{shopname}")
     public String shop(@PathVariable String shopname, @RequestParam(value="name", required=false, defaultValue="Shop") String name, Model model) {
         model.addAttribute("name", shopname);
+        model.addAttribute("today", LocalDate.now());
+        model.addAttribute("tomorrow", LocalDate.now().plusDays(1));
         return "shop";
     }
 }
