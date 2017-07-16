@@ -1,10 +1,8 @@
 package org.kj6682.peakycake;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import lombok.Setter;
 import org.kj6682.commons.LocalDateDeserializer;
 import org.kj6682.commons.LocalDateSerializer;
 import org.springframework.util.Assert;
@@ -22,7 +20,7 @@ import java.time.LocalDate;
  */
 
 @Data
-@Entity(name="peakyorder")
+@Entity(name = "peakyorder")
 class Order {
 
     @Id
@@ -32,6 +30,8 @@ class Order {
     private String shop;
 
     private String cake;
+
+    private Integer quantity;
 
     private String message;
 
@@ -44,13 +44,16 @@ class Order {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate due;
 
-
     private String status;
 
-    protected Order(){};
+    protected Order() {
+    }
+
+    ;
 
     public Order(String shop,
                  String cake,
+                 Integer quantity,
                  String message,
                  LocalDate since,
                  LocalDate due,
@@ -58,6 +61,8 @@ class Order {
 
         Assert.notNull(shop, "an order needs a shop");
         Assert.notNull(cake, "an order needs a cake");
+        Assert.notNull(quantity, "an order needs a quantity");
+        Assert.isTrue(quantity.intValue() > 0, "an order needs a positive quantity");
         Assert.notNull(message, "an order needs a message");
         Assert.notNull(since, "an order needs an origin date");
         Assert.notNull(due, "an order needs an due date");
@@ -65,6 +70,7 @@ class Order {
 
         this.shop = shop;
         this.cake = cake;
+        this.quantity = quantity;
         this.message = message;
         this.created = since;
         this.due = due;

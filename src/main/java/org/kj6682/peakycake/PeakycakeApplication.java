@@ -21,10 +21,10 @@ public class PeakycakeApplication {
         return (evt) -> {
             Arrays.asList("blue cake, red cake, white cake, yellow cake, black cake".split(",")).forEach(
                     cake -> {
-                        Order o1 = new Order("north", cake, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
-                        Order o2 = new Order("south", cake, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
-                        Order o3 = new Order("east", cake, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
-                        Order o4 = new Order("west", cake, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
+                        Order o1 = new Order("north", cake, 10, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
+                        Order o2 = new Order("south", cake, 10, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
+                        Order o3 = new Order("east", cake, 10, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
+                        Order o4 = new Order("west", cake, 10, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
 
                         orderRepository.save(o1);
                         orderRepository.save(o2);

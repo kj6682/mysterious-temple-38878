@@ -34,6 +34,7 @@ public class OrderJsonTest {
     public void setup() throws Exception{
         order = new Order("north",
                 "peaky cake",
+                10,
                 "peaky cake customizable message",
                 LocalDate.of(2017, 7, 13),
                 LocalDate.of(2017, 8, 7),

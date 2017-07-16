@@ -9,12 +9,21 @@ $(document).ready(function () {
 
     });
 
+    $("#create-form").submit(function (event) {
+
+        //stop submit the form, we will post it manually.
+        event.preventDefault();
+
+        create_submit();
+
+    });
+
 });
 
 function search_submit() {
 
     var search = {}
-    search["shop"] = $("#shop").val();
+    search["shop"] = $("#search-form-shop").val();
     if(search.shop === "all"){
         search["shop"] = "";
     }
@@ -46,6 +55,59 @@ function search_submit() {
 
             console.log("ERROR : ", e);
             $("#btn-search").prop("disabled", false);
+
+        }
+    });
+
+}
+
+function create_submit() {
+    var order = {};
+    order["shop"] = $("#create-form-shop").val();
+    order["cake"] = $("#create-form-cake").val();
+    order["quantity"] = $("#create-form-quantity").val();
+    order["message"] = $("#create-form-message").val();
+
+    var created = new Date();
+    var yyyy = created.getFullYear();
+    var dd = created.getDate();
+    dd = (dd.toString().length > 1)? dd : '0' + dd;
+    var MM =  created.getMonth() + 1;
+    MM = (MM.toString().length > 1)? MM : '0'+ MM;
+    created = yyyy + "-" + MM + "-" + dd;
+    order["created"] = created;
+
+    order["due"] = $("#create-form-due").val();
+    order["status"] = "NEW";
+
+    $("#btn-create").prop("disabled", true);
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/api/"+order.shop+"/orders",
+        data: JSON.stringify(order),
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+            var json = "<h4>Ajax Response</h4><pre>"
+                + JSON.stringify(data, null, 4) + "</pre>";
+            $('#feedback-create').html(json);
+
+            console.log("SUCCESS : ", data);
+            $("#btn-create").prop("disabled", false);
+
+        },
+        error: function (e) {
+
+            var json = "<h4>Ajax Response</h4><pre>"
+                + e.responseText + "</pre>";
+            $('#feedback-create').html(json);
+
+            console.log("ERROR : ", e);
+            $("#btn-create-create").prop("disabled", false);
 
         }
     });
