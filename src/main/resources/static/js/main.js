@@ -21,8 +21,8 @@ $(document).ready(function () {
 
     $(document).on("click", '.js-validate', function(event) {
         var orderid = event.target.getAttribute("orderid");
-        console.log(orderid);
         validate_order(orderid);
+
     });
 
     $(document).on("click", '.js-delete', function(event) {
@@ -150,7 +150,8 @@ function validate_order(orderid) {
         cache: false,
         timeout: 600000,
         success: function (data) {
-
+            $('#cakeFullTable tr').eq(orderid).find("td").eq(7).html('DONE');
+            
             var json = "<h4>Ajax Response</h4><pre>"
                 + JSON.stringify(data, null, 4) + "</pre>";
             $('#feedback-create').html(json);
