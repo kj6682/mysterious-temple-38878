@@ -20,12 +20,13 @@ $(document).ready(function () {
     });
 
     $(document).on("click", '.js-validate', function(event) {
-        var my = event.target.getAttribute("mytarget");
-        console.log(my);
+        var orderid = event.target.getAttribute("orderid");
+        console.log(orderid);
+        validate_order(orderid);
     });
 
     $(document).on("click", '.js-delete', function(event) {
-        console.log(event.target.getAttribute("mytarget"));
+        console.log(event.target.getAttribute("orderid"));
     });
 
 
@@ -68,8 +69,8 @@ function search_submit() {
                     '<td>' + data[i].cake + '</td><td>' + data[i].quantity + '</td>'+
                     '<td>' + data[i].message + '</td><td>' + data[i].created + '</td>'+
                     '<td>' + data[i].due + '</td><td>' + data[i].status + '</td>'+
-                    '<td><button type="button" class="btn btn-default js-validate glyphicon glyphicon-ok-circle" mytarget=' + data[i].id + '></button></td>'+
-                    '<td><button type="button" class="btn btn-default js-delete glyphicon glyphicon-remove-circle" mytarget=' + data[i].id + '></button></td>'+
+                    '<td><button type="button" class="btn btn-default js-validate glyphicon glyphicon-ok-circle" orderid=' + data[i].id + '></button></td>'+
+                    '<td><button type="button" class="btn btn-default js-delete glyphicon glyphicon-remove-circle" orderid=' + data[i].id + '></button></td>'+
                     +'</tr>';
             });
 
@@ -111,6 +112,40 @@ function create_submit() {
         contentType: "application/json",
         url: "/api/"+order.shop+"/orders",
         data: JSON.stringify(order),
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+            var json = "<h4>Ajax Response</h4><pre>"
+                + JSON.stringify(data, null, 4) + "</pre>";
+            $('#feedback-create').html(json);
+
+            console.log("SUCCESS : ", data);
+            $("#btn-create").prop("disabled", false);
+
+        },
+        error: function (e) {
+
+            var json = "<h4>Ajax Response</h4><pre>"
+                + e.responseText + "</pre>";
+            $('#feedback-create').html(json);
+
+            console.log("ERROR : ", e);
+            $("#btn-create-create").prop("disabled", false);
+
+        }
+    });
+
+}
+
+function validate_order(orderid) {
+
+    $.ajax({
+        type: "PUT",
+        contentType: "application/json",
+        url: "/api/orders/" + orderid ,
+        //data: JSON.stringify(order),
         dataType: 'json',
         cache: false,
         timeout: 600000,
