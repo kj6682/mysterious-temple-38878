@@ -22,11 +22,11 @@ $(document).ready(function () {
     $(document).on("click", '.js-validate', function(event) {
         var orderid = event.target.getAttribute("orderid");
         validate_order(orderid);
-
     });
 
     $(document).on("click", '.js-delete', function(event) {
-        console.log(event.target.getAttribute("orderid"));
+        var orderid = event.target.getAttribute("orderid");
+        delete_order(orderid);
     });
 
 
@@ -64,7 +64,7 @@ function search_submit() {
 
             $.each(data, function (i, item) {
 
-                trHTML += '<tr>'+
+                trHTML += '<tr id="tr'+ data[i].id + '">'+
                     '<td>' + data[i].id + '</td><td>' + data[i].shop + '</td>'+
                     '<td>' + data[i].cake + '</td><td>' + data[i].quantity + '</td>'+
                     '<td>' + data[i].message + '</td><td>' + data[i].created + '</td>'+
@@ -145,13 +145,15 @@ function validate_order(orderid) {
         type: "PUT",
         contentType: "application/json",
         url: "/api/orders/" + orderid ,
-        //data: JSON.stringify(order),
         dataType: 'json',
         cache: false,
         timeout: 600000,
         success: function (data) {
-            $('#cakeFullTable tr').eq(orderid).find("td").eq(7).html('DONE');
-            
+
+            console.log($('#cakeFullTable tr').eq(orderid));
+
+            $('#tr'+orderid).find("td").eq(7).html('DONE');
+
             var json = "<h4>Ajax Response</h4><pre>"
                 + JSON.stringify(data, null, 4) + "</pre>";
             $('#feedback-create').html(json);
@@ -168,6 +170,31 @@ function validate_order(orderid) {
 
             console.log("ERROR : ", e);
             $("#btn-create-create").prop("disabled", false);
+
+        }
+    });
+
+}
+
+function delete_order(orderid) {
+
+    $.ajax({
+        type: "DELETE",
+        contentType: "application/json",
+        url: "/api/orders/" + orderid ,
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+          /* nothing to do :
+             actually a cod 200 is interpreted as error
+             and swagger says I should receive a 204
+             ...pb jQuery?
+          */
+        },
+        error: function (e) {
+            $('#tr'+orderid).find("td").remove();
 
         }
     });
