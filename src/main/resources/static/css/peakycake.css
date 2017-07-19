@@ -25,3 +25,9 @@ body {
 #create-form{
 
 }
+
+.small-img{
+    height: 50px;
+    width: 50px;
+    align: "left";
+}
