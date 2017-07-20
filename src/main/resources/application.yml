@@ -1,6 +1,8 @@
-pring:
+spring:
   application:
     name: peakycake
   jackson:
     serializazion:
       WRITE_DATES_AS_TIMESTAMPS : false
+  thymeleaf:
+    cache: false

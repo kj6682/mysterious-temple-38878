@@ -22,11 +22,13 @@ public class FrontendController {
     @RequestMapping("/chef")
     public String chef(@RequestParam(value="name", required=false, defaultValue="Chef") String name, Model model) {
         model.addAttribute("name", name);
+        model.addAttribute("today", LocalDate.now());
+        model.addAttribute("tomorrow", LocalDate.now().plusDays(1));
         return "chef";
     }
 
     @RequestMapping("/shop/{shopname}")
-    public String shop(@PathVariable String shopname, @RequestParam(value="name", required=false, defaultValue="Shop") String name, Model model) {
+    public String shop(@PathVariable String shopname, Model model) {
         model.addAttribute("name", shopname);
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("tomorrow", LocalDate.now().plusDays(1));

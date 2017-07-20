@@ -1,17 +1,10 @@
 
 $(document).ready(function () {
 
-    $("#catalog").click(function(){
-        $("#catalog-area").show();
-        $("#create-area").hide();
-        $("#search-area").hide();
-    });
+    $("#catalog-area").hide();
+    $("#create-area").hide();
+    $("#search-area").hide();
 
-    $("#orders").click(function(){
-        $("#catalog-area").hide();
-        $("#create-area").show();
-        $("#search-area").show();
-    });
 
     $("#search-form").submit(function (event) {
 
@@ -31,9 +24,21 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", '.js-validate', function(event) {
-        var orderid = event.target.getAttribute("orderid");
-        validate_order(orderid);
+    $(document).on("click", '.js-browse-catalog', function(event) {
+        $("#catalog-area").show();
+        $("#create-area").hide();
+        $("#search-area").hide();
+    });
+
+    $(document).on("click", '.js-list-orders', function(event) {
+        $("#catalog-area").hide();
+        $("#create-area").show();
+        $("#search-area").show();
+    });
+
+    $(document).on("click", '.js-create', function(event) {
+        create_order();
+        $("#cakeModal").modal('toggle');
     });
 
     $(document).on("click", '.js-delete', function(event) {
@@ -41,7 +46,15 @@ $(document).ready(function () {
         delete_order(orderid);
     });
 
+    $(document).on("click", '.js-validate', function(event) {
+        var orderid = event.target.getAttribute("orderid");
+        validate_order(orderid);
+    });
 
+    $(document).on("click", '.js-catalog-item', function(event) {
+        $("#create-modal-form-cake").val($(this).attr('id'));
+        $("#create-modal-form-message").val($(this).text().trim());
+    });
 
 });
 
@@ -108,12 +121,12 @@ function search_order() {
 function create_order() {
 
     var order = {};
-    order["shop"] = $("#create-form-shop").val();
-    order["cake"] = $("#create-form-cake").val();
-    order["quantity"] = $("#create-form-quantity").val();
-    order["message"] = $("#create-form-message").val();
-    order["created"] = $("#create-form-createdOn").val();
-    order["due"] = $("#create-form-dueOn").val();
+    order["shop"] = $("#create-modal-form-shop").val();
+    order["cake"] = $("#create-modal-form-cake").val();
+    order["quantity"] = $("#create-modal-form-quantity").val();
+    order["message"] = $("#create-modal-form-message").val();
+    order["created"] = $("#create-modal-form-createdOn").val();
+    order["due"] = $("#create-modal-form-dueOn").val();
     order["status"] = "NEW";
 
     $("#btn-create").prop("disabled", true);

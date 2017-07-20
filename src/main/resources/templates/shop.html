@@ -23,9 +23,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="http://localhost:8080/peakycake">Home</a></li>
-                <li><a href="#catalog" id="catalog">Catalog</a></li>
-                <li><a href="#orders" id="orders">Orders</a></li>
+                <li><a href="#catalog" class="js-browse-catalog">catalog</a></li>
+                <li><a href="#orders" class="js-list-orders">orders</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -41,6 +40,7 @@
 
 </div>
 <div class="container" style="min-height: 500px">
+
     <div id="create-area">
 
         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
@@ -126,118 +126,98 @@
     </div>
 
     <div id="catalog-area">
+        <div id="cakeModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create Order</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Use this modal box to create your order.</p>
+                        <form id="create-modal-form">
+                            <input id="create-modal-form-shop" type="hidden" th:value="${name}"/>
+                            <div class="form-group row">
+                                <label for="create-modal-form-cake" class="col-sm-2 col-form-label"> your cakes </label>
+                                <div class="col-sm-10">
+                                    <input id="create-modal-form-cake" type="text" class="form-control"
+                                           placeholder="cake" readonly="readonly"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="create-modal-form-quantity" class="col-sm-2 col-form-label">
+                                    quantity </label>
+                                <div class="col-sm-10">
+                                    <input id="create-modal-form-quantity" class="form-control" type="number"
+                                           value="1"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="create-modal-form-message" class="col-sm-2 col-form-label"> message </label>
+                                <div class="col-sm-10">
+                                    <input id="create-modal-form-message" type="text" class="form-control"
+                                           placeholder="message"/>
+                                </div>
+                            </div>
+                            <input id="create-modal-form-createdOn" type="hidden"
+                                   th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
+                            <div class="form-group row">
+                                <label for="create-modal-form-dueOn" class="col-sm-2 col-form-label"> wished execution
+                                    date </label>
+                                <div class="col-sm-10">
+                                    <input id="create-modal-form-dueOn" class="form-control" type="date"
+                                           th:value="${#temporals.format(tomorrow, 'yyyy-MM-dd')}"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                        <button id="bth-modal-create" type="submit" class="btn btn-default js-create">create</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3">
-                <p id="cake1">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #1
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <img src="/img/rocket.png" class="small-img"/>
+                <p id="cake1" class="js-catalog-item">
+                    This is the supreme cake #1
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#cakeModal">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
                 </p>
             </div>
             <div class="col-md-3">
-
-                <p id="cake2">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #2
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <img src="/img/rocket.png" class="small-img"/>
+                <p id="cake2" class="js-catalog-item">
+                    This is the delicious cake #2
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#cakeModal">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
                 </p>
             </div>
             <div class="col-md-3">
-                <p id="cake3">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #3
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <p id="cake4">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #4
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <p id="cake5">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #5
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <p id="cake6">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #6
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <p id="cake7">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #7
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <p id="cake8">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #8
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <p id="cake9">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #9
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <p id="cake10">
-                    <img src="/img/rocket.png" class="small-img"/>
+                <img src="/img/rocket.png" class="small-img"/>
+                <p id="cake10" class="js-catalog-item">
                     This is the ultimate cake #10
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#cakeModal">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
                 </p>
             </div>
             <div class="col-md-3">
-                <p id="cake11">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #11
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <img src="/img/rocket.png" class="small-img"/>
+                <p id="cake20" class="js-catalog-item">
+                    This is the fantastic cake #20
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#cakeModal">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
                 </p>
             </div>
-            <div class="col-md-3">
-                <p id="cake12">
-                    <img src="/img/rocket.png" class="small-img"/>
-                    This is the ultimate cake #12
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </p>
-
-            </div>
-
         </div>
     </div>
 
