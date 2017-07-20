@@ -2,10 +2,6 @@ body {
     padding-top: 50px;
     margin-bottom: 60px;
 }
-.starter-template {
-    padding: 40px 15px;
-    text-align: center;
-}
 
 .footer {
     bottom: 0;
@@ -22,12 +18,14 @@ body {
     padding: 40px 15px;
 }
 
-#create-form{
-
-}
 
 .small-img{
     height: 100px;
     width: 100px;
     align: "left";
+}
+
+.product{
+    background: #eee;
+    font-weight: bold;
 }

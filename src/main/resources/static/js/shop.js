@@ -1,8 +1,7 @@
 
 $(document).ready(function () {
 
-    $("#catalog-area").hide();
-    $("#create-area").hide();
+    $("#catalog-area").show();
     $("#search-area").hide();
 
 
@@ -15,30 +14,20 @@ $(document).ready(function () {
 
     });
 
-    $("#create-form").submit(function (event) {
-
-        //stop submit the form, we will post it manually.
-        event.preventDefault();
-
-        create_order();
-
-    });
-
     $(document).on("click", '.js-browse-catalog', function(event) {
         $("#catalog-area").show();
-        $("#create-area").hide();
         $("#search-area").hide();
     });
 
     $(document).on("click", '.js-list-orders', function(event) {
         $("#catalog-area").hide();
-        $("#create-area").show();
         $("#search-area").show();
     });
 
     $(document).on("click", '.js-create', function(event) {
+        console.log("click on js-create");
         create_order();
-        $("#cakeModal").modal('toggle');
+        $("#create-order-modal").modal('toggle');
     });
 
     $(document).on("click", '.js-delete', function(event) {
@@ -52,11 +41,56 @@ $(document).ready(function () {
     });
 
     $(document).on("click", '.js-catalog-item', function(event) {
-        $("#create-modal-form-cake").val($(this).attr('id'));
-        $("#create-modal-form-message").val($(this).text().trim());
+        $("#create-order-modal-form-cake").val($(this).attr('id'));
+        $("#create-order-modal-form-message").val($(this).find('h4').text().trim());
     });
 
 });
+
+function create_order() {
+
+    var order = {};
+    order["shop"] = $("#create-order-modal-form-shop").val();
+    order["cake"] = $("#create-order-modal-form-cake").val();
+    order["quantity"] = $("#create-order-modal-form-quantity").val();
+    order["message"] = $("#create-order-modal-form-message").val();
+    order["created"] = $("#create-order-modal-form-createdOn").val();
+    order["due"] = $("#create-order-modal-form-dueOn").val();
+    order["status"] = "NEW";
+
+    $("#btn-create").prop("disabled", true);
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/api/"+order.shop+"/orders",
+        data: JSON.stringify(order),
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+            var json = "<h4>Ajax Response</h4><pre>"
+                + JSON.stringify(data, null, 4) + "</pre>";
+            $('#error-area').html(json);
+
+            console.log("SUCCESS : ", data);
+            $("#btn-create").prop("disabled", false);
+
+        },
+        error: function (e) {
+
+            var json = "<h4>Ajax Response</h4><pre>"
+                + e.responseText + "</pre>";
+            $('#error-area').html(json);
+
+            console.log("ERROR : ", e);
+            $("#btn-create-create").prop("disabled", false);
+
+        }
+    });
+
+}
 
 function search_order() {
 
@@ -82,7 +116,7 @@ function search_order() {
             if(DEBUG_json) {
                 var json = "<h4>Ajax Response</h4><pre>"
                     + JSON.stringify(data, null, 4) + "</pre>";
-                $('#feedback').html(json);
+                $('#error-area').html(json);
             }
 
             var trHTML = '';
@@ -98,7 +132,7 @@ function search_order() {
                     +'</tr>';
             });
 
-            $('#cakeTable').html(trHTML);
+            $('#orders-table-body').html(trHTML);
 
             console.log("SUCCESS : ", data);
             $("#btn-search").prop("disabled", false);
@@ -108,55 +142,10 @@ function search_order() {
 
             var json = "<h4>Ajax Response</h4><pre>"
                 + e.responseText + "</pre>";
-            $('#feedback').html(json);
+            $('#error-area').html(json);
 
             console.log("ERROR : ", e);
             $("#btn-search").prop("disabled", false);
-
-        }
-    });
-
-}
-
-function create_order() {
-
-    var order = {};
-    order["shop"] = $("#create-modal-form-shop").val();
-    order["cake"] = $("#create-modal-form-cake").val();
-    order["quantity"] = $("#create-modal-form-quantity").val();
-    order["message"] = $("#create-modal-form-message").val();
-    order["created"] = $("#create-modal-form-createdOn").val();
-    order["due"] = $("#create-modal-form-dueOn").val();
-    order["status"] = "NEW";
-
-    $("#btn-create").prop("disabled", true);
-
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "/api/"+order.shop+"/orders",
-        data: JSON.stringify(order),
-        dataType: 'json',
-        cache: false,
-        timeout: 600000,
-        success: function (data) {
-
-            var json = "<h4>Ajax Response</h4><pre>"
-                + JSON.stringify(data, null, 4) + "</pre>";
-            $('#feedback-create').html(json);
-
-            console.log("SUCCESS : ", data);
-            $("#btn-create").prop("disabled", false);
-
-        },
-        error: function (e) {
-
-            var json = "<h4>Ajax Response</h4><pre>"
-                + e.responseText + "</pre>";
-            $('#feedback-create').html(json);
-
-            console.log("ERROR : ", e);
-            $("#btn-create-create").prop("disabled", false);
 
         }
     });
@@ -174,13 +163,13 @@ function validate_order(orderid) {
         timeout: 600000,
         success: function (data) {
 
-            console.log($('#cakeFullTable tr').eq(orderid));
+            console.log($('#orders-table tr').eq(orderid));
 
             $('#tr'+orderid).find("td").eq(7).html('DONE');
 
             var json = "<h4>Ajax Response</h4><pre>"
                 + JSON.stringify(data, null, 4) + "</pre>";
-            $('#feedback-create').html(json);
+            $('#error-area').html(json);
 
             console.log("SUCCESS : ", data);
             $("#btn-create").prop("disabled", false);
@@ -190,7 +179,7 @@ function validate_order(orderid) {
 
             var json = "<h4>Ajax Response</h4><pre>"
                 + e.responseText + "</pre>";
-            $('#feedback-create').html(json);
+            $('#error-area').html(json);
 
             console.log("ERROR : ", e);
             $("#btn-create-create").prop("disabled", false);
