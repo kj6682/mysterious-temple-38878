@@ -41,7 +41,7 @@ $(document).ready(function () {
     });
 
     $(document).on("click", '.js-catalog-item', function(event) {
-        $("#create-order-modal-form-cake").val($(this).attr('id'));
+        $("#create-order-modal-form-product").val($(this).attr('id'));
         $("#create-order-modal-form-message").val($(this).find('h4').text().trim());
     });
 
@@ -51,7 +51,7 @@ function create_order() {
 
     var order = {};
     order["shop"] = $("#create-order-modal-form-shop").val();
-    order["cake"] = $("#create-order-modal-form-cake").val();
+    order["cake"] = $("#create-order-modal-form-product").val();
     order["quantity"] = $("#create-order-modal-form-quantity").val();
     order["message"] = $("#create-order-modal-form-message").val();
     order["created"] = $("#create-order-modal-form-createdOn").val();

@@ -47,7 +47,7 @@ class PeakyCake {
                      LocalDate since,
                      String status) {
 
-        Assert.notNull(cake, "an order needs a cake");
+        Assert.notNull(cake, "an order needs a product");
         Assert.notNull(label, "an order needs a label");
         Assert.notNull(since, "an order needs an origin date");
         Assert.notNull(status, "an order needs an state");

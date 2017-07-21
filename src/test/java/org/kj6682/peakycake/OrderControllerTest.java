@@ -63,7 +63,7 @@ public class OrderControllerTest {
     public void setup() {
         orderList = new LinkedList<Order>();
         for (int i = 0; i < 10; i++) {
-            orderList.add(new Order("North","cake : " + i, 10, "message : " + i, LocalDate.now(), LocalDate.now().plusDays(10), "NEW"));
+            orderList.add(new Order("North","product : " + i, 10, "message : " + i, LocalDate.now(), LocalDate.now().plusDays(10), "NEW"));
         }
     }
 

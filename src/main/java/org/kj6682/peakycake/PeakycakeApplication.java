@@ -23,7 +23,7 @@ public class PeakycakeApplication {
     CommandLineRunner init(OrderRepository orderRepository) {
 
         return (evt) -> {
-            Arrays.asList("blue cake, red cake, white cake, yellow cake, black cake".split(",")).forEach(
+            Arrays.asList("blue product, red product, white product, yellow product, black product".split(",")).forEach(
                     cake -> {
                         Order o1 = new Order("north", cake, 10, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
                         Order o2 = new Order("south", cake, 10, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");

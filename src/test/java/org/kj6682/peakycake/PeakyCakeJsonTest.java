@@ -38,8 +38,8 @@ public class PeakyCakeJsonTest {
 
     @Before
     public void setup() throws Exception{
-        cake = new PeakyCake("peaky cake",
-                "peaky cake customizable message",
+        cake = new PeakyCake("peaky product",
+                "peaky product customizable message",
                 LocalDate.of(2017,7,13),
                 "RUNNING");
         jsonFile = ResourceUtils.getFile("classpath:peakycake.json");

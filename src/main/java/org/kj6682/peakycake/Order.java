@@ -33,7 +33,7 @@ class Order {
     private String shop;
 
     @NotEmpty
-    private String cake;
+    private String product;
 
     @Min(value = 1L)
     private Integer quantity;
@@ -59,7 +59,7 @@ class Order {
     ;
 
     public Order(String shop,
-                 String cake,
+                 String product,
                  Integer quantity,
                  String message,
                  LocalDate since,
@@ -67,7 +67,7 @@ class Order {
                  String status) {
 
         Assert.notNull(shop, "an order needs a shop");
-        Assert.notNull(cake, "an order needs a cake");
+        Assert.notNull(product, "an order needs a product");
         Assert.notNull(quantity, "an order needs a quantity");
         Assert.isTrue(quantity.intValue() > 0, "an order needs a positive quantity");
         Assert.notNull(message, "an order needs a message");
@@ -76,7 +76,7 @@ class Order {
         Assert.notNull(status, "an order needs an state");
 
         this.shop = shop;
-        this.cake = cake;
+        this.product = product;
         this.quantity = quantity;
         this.message = message;
         this.created = since;

@@ -98,7 +98,7 @@ function create_order() {
 
     var order = {};
     order["shop"] = $("#create-form-shop").val();
-    order["cake"] = $("#create-form-cake").val();
+    order["cake"] = $("#create-form-product").val();
     order["quantity"] = $("#create-form-quantity").val();
     order["message"] = $("#create-form-message").val();
     order["created"] = $("#create-form-createdOn").val();
