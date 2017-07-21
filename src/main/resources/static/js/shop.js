@@ -49,6 +49,8 @@ $(document).ready(function () {
 
 function create_order() {
 
+    var DEBUG_json = false;
+
     var order = {};
     order["shop"] = $("#create-order-modal-form-shop").val();
     order["product"] = $("#create-order-modal-form-product").val();
@@ -69,10 +71,12 @@ function create_order() {
         cache: false,
         timeout: 600000,
         success: function (data) {
-
-            var json = "<h4>Ajax Response</h4><pre>"
-                + JSON.stringify(data, null, 4) + "</pre>";
-            $('#error-area').html(json);
+            
+            if(DEBUG_json) {
+                var json = "<h4>Ajax Response</h4><pre>"
+                    + JSON.stringify(data, null, 4) + "</pre>";
+                $('#error-area').html(json);
+            }
 
             console.log("SUCCESS : ", data);
             $("#btn-create").prop("disabled", false);
