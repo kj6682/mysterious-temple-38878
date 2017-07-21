@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ResourceUtils;
 
@@ -26,6 +27,9 @@ public class OrderJsonTest {
 
     Order order;
     File jsonFile;
+
+    @MockBean
+    private OrderRepository orderRepository;
 
     @Autowired
     private JacksonTester<Order> json;
