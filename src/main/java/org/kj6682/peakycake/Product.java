@@ -22,7 +22,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-class PeakyCake {
+class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,12 +40,12 @@ class PeakyCake {
 
     private String status;
 
-    protected PeakyCake(){}
+    protected Product(){}
 
-    public PeakyCake(String cake,
-                     String label,
-                     LocalDate since,
-                     String status) {
+    public Product(String cake,
+                   String label,
+                   LocalDate since,
+                   String status) {
 
         Assert.notNull(cake, "an order needs a product");
         Assert.notNull(label, "an order needs a label");

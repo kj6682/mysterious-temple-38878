@@ -24,21 +24,21 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 @JsonTest
-public class PeakyCakeJsonTest {
+public class ProductJsonTest {
 
     @Autowired
-    private JacksonTester<PeakyCake> json;
+    private JacksonTester<Product> json;
 
     @MockBean
     private OrderRepository orderRepository;
 
-    PeakyCake cake;
+    Product cake;
 
     File jsonFile;
 
     @Before
     public void setup() throws Exception{
-        cake = new PeakyCake("peaky product",
+        cake = new Product("peaky product",
                 "peaky product customizable message",
                 LocalDate.of(2017,7,13),
                 "RUNNING");
@@ -54,7 +54,7 @@ public class PeakyCakeJsonTest {
     public void deserialise() throws Exception {
 
         String jsonObject = new String(Files.readAllBytes(jsonFile.toPath()));
-        PeakyCake newCake = this.json.parse(jsonObject).getObject();
+        Product newCake = this.json.parse(jsonObject).getObject();
         assertThat(newCake.equals(cake));
 
     }
