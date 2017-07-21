@@ -51,7 +51,7 @@ function create_order() {
 
     var order = {};
     order["shop"] = $("#create-order-modal-form-shop").val();
-    order["cake"] = $("#create-order-modal-form-product").val();
+    order["product"] = $("#create-order-modal-form-product").val();
     order["quantity"] = $("#create-order-modal-form-quantity").val();
     order["message"] = $("#create-order-modal-form-message").val();
     order["created"] = $("#create-order-modal-form-createdOn").val();
@@ -125,7 +125,7 @@ function search_order() {
 
                 trHTML += '<tr id="tr'+ data[i].id + '">'+
                     '<td>' + data[i].id + '</td><td>' + data[i].shop + '</td>'+
-                    '<td>' + data[i].cake + '</td><td>' + data[i].quantity + '</td>'+
+                    '<td>' + data[i].product + '</td><td>' + data[i].quantity + '</td>'+
                     '<td>' + data[i].message + '</td><td>' + data[i].created + '</td>'+
                     '<td>' + data[i].due + '</td><td>' + data[i].status + '</td>'+
                     '<td><button type="button" class="btn btn-default js-delete glyphicon glyphicon-remove-circle" orderid=' + data[i].id + '></button></td>'+
