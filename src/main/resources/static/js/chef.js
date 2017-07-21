@@ -122,6 +122,7 @@ function list_orders() {
                     '<td>' + data[i].product + '</td><td>' + data[i].quantity + '</td>'+
                     '<td>' + data[i].message + '</td><td>' + data[i].created + '</td>'+
                     '<td>' + data[i].due + '</td><td>' + data[i].status + '</td>'+
+                    '<td><button type="button" class="btn btn-default js-validate glyphicon glyphicon-ok-circle" orderid=' + data[i].id + '></button></td>'+
                     '<td><button type="button" class="btn btn-default js-delete-order glyphicon glyphicon-remove-circle" orderid=' + data[i].id + '></button></td>'+
                     +'</tr>';
             });

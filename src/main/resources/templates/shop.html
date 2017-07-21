@@ -11,7 +11,8 @@
 
 <div class="container">
     <div class="jumbotron">
-        <h1 th:text="${#strings.toUpperCase(name)} + ' shop workstation'"/>
+        <h1 th:text="'Welcome to ' + ${#strings.toUpperCase(name)}"/>
+        <h3>a place of wonder</h3>
     </div>
 </div>
 
@@ -29,58 +30,30 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#" class="js-browse-catalog">catalog</a></li>
+                <li><a href="#" class="js-list-products active">products</a></li>
                 <li><a href="#" class="js-list-orders">orders</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
 
+<div class="container">
+    <div>
+        <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+            Donec sed odio dui. </p>
+    </div>
+    <div id="error-area"></div>
+</div>
+
 <div class="container" style="min-height: 500px">
 
-    <div id="search-area">
-
-        <form id="search-form" class="form-horizontal">
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default" aria-label="Help">
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                    </button>
-                    <button id="bth-search" type="submit" class="btn btn-default">search</button>
-                </div>
-                <input id="search-form-shop" class="form-control" th:value="${name}"/>
-            </div>
-        </form>
-
-        <div id="orders" class="table-responsive">
-            <table id="orders-table" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>shop</th>
-                    <th>product</th>
-                    <th>quantity</th>
-                    <th>message</th>
-                    <th>createdOn</th>
-                    <th>dueOn</th>
-                    <th>status</th>
-                </tr>
-                </thead>
-                <tbody id="orders-table-body">
-                <productcake orders go here -->
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-
-    <div id="catalog-area">
+    <div id="products-area">
         <div>
-            <h1 th:text="'Browse catalog for ' +${#strings.toUpperCase(name)} + ' shop'"/>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
-                euismod.
-                Donec sed odio dui. </p>
+            <h4 th:text="'Browse catalog for the ' +${#strings.toUpperCase(name)} + ' shop'"/>
+            <p>This is the product area, the place where you can list the product catalog
+                and select a product to create an order.</p>
         </div>
 
 
@@ -134,99 +107,58 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-                        <button type="submit" class="btn btn-default js-create">create</button>
+                        <button type="submit" class="btn btn-default js-create-order">create</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="panel-body">
+        <div id="products" class="panel-body">
 
-            <div id="cake1" class="product panel panel-default js-catalog-item">
-                <div class="panel-body">
-                    <img src="/img/rocket.png" class="small-img" align="left"/>
-                    <h3>cake1</h3>
-                    <h4>This is the message for the supreme product #1</h4>
-                    <button type="button" class="btn btn-default text-right" data-toggle="modal"
-                            data-target="#create-order-modal" style="float: right;">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
-
-            <div id="cake1" class="product panel panel-default js-catalog-item">
-                <div class="panel-body">
-                    <img src="/img/rocket.png" class="small-img" align="left"/>
-                    <h3>cake1</h3>
-                    <h4>This is the message for the supreme product #1</h4>
-                    <button type="button" class="btn btn-default text-right" data-toggle="modal"
-                            data-target="#create-order-modal" style="float: right;">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
-
-            <div id="cake1" class="product panel panel-default js-catalog-item">
-                <div class="panel-body">
-                    <img src="/img/rocket.png" class="small-img" align="left"/>
-                    <h3>product 1</h3>
-                    <h4>This is the message for the supreme product #1</h4>
-                    <button type="button" class="btn btn-default text-right" data-toggle="modal"
-                            data-target="#create-order-modal" style="float: right;">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
-
-            <div id="cake2" class="product panel panel-default js-catalog-item">
-                <div class="panel-body">
-                    <img src="/img/rocket.png" class="small-img" align="left"/>
-                    <h3>product 2</h3>
-                    <h4>This is the message for the supreme product #2</h4>
-                    <button type="button" class="btn btn-default text-right" data-toggle="modal"
-                            data-target="#create-order-modal" style="float: right;">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
-
-            <div id="cake3" class="product panel panel-default js-catalog-item">
-                <div class="panel-body">
-                    <img src="/img/rocket.png" class="small-img" align="left"/>
-                    <h3>product 3</h3>
-                    <h4>This is the message for the supreme product #3</h4>
-                    <button type="button" class="btn btn-default text-right" data-toggle="modal"
-                            data-target="#create-order-modal" style="float: right;">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
-
-            <div id="cake10" class="product panel panel-default js-catalog-item">
-                <div class="panel-body">
-                    <img src="/img/rocket.png" class="small-img" align="left"/>
-                    <h3>product 10</h3>
-                    <h4>This is the message for the supreme product #10</h4>
-                    <button type="button" class="btn btn-default text-right" data-toggle="modal"
-                            data-target="#create-order-modal" style="float: right;">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
-
-            <div id="cake11" class="product panel panel-default js-catalog-item">
-                <div class="panel-body">
-                    <img src="/img/rocket.png" class="small-img" align="left"/>
-                    <h3>product 11</h3>
-                    <h4>This is the message for the supreme product #11</h4>
-                    <button type="button" class="btn btn-default text-right" data-toggle="modal"
-                            data-target="#create-order-modal" style="float: right;">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
 
         </div>
+    </div>
+
+    <div id="orders-area">
+        <div>
+            <h4 th:text="'List orders for the ' +${#strings.toUpperCase(name)} + ' shop'"/>
+            <p>This is the orders area, the place where you can list the orders,
+                even those of the other shops (use all to see all of them together).</p>
+            <p>If you are not happy with one order, you can delete it by selecting its  button.</p>
+        </div>
+
+        <form id="search-orders-form" class="form-horizontal">
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" aria-label="Help">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                    </button>
+                    <button id="bth-search" type="submit" class="btn btn-default js-list-orders">search</button>
+                </div>
+                <input id="search-orders-form-shopname" class="form-control" th:value="${name}"/>
+            </div>
+        </form>
+
+        <div id="orders" class="table-responsive">
+            <table id="orders-table" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>shop</th>
+                    <th>product</th>
+                    <th>quantity</th>
+                    <th>message</th>
+                    <th>createdOn</th>
+                    <th>dueOn</th>
+                    <th>status</th>
+                </tr>
+                </thead>
+                <tbody id="orders-table-body">
+                <!-- product orders go here -->
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
     <div class="container">
