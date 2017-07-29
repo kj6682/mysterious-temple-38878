@@ -33,9 +33,9 @@
 <div class="container">
     <div>
         <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui. </p>
+        <p>The chef can manage products (create new products, modify existing products and delete obsolete products).
+        The chef can also manage all the orders. These actions include the creation of orders, the evolution of orders and the
+        delete of orders. In other words the Chef has supreme power on all the objects of this application.</p>
     </div>
     <div id="error-area"></div>
 </div>
@@ -43,14 +43,16 @@
 <div class="container" style="min-height: 500px">
 
     <div id="products-area">
+        <div id="products" class="panel-body">
 
+        </div>
     </div>
 
     <div id="orders-area">
 
         <a href="#create-form" class="btn btn-default" data-toggle="collapse">create new order</a>
 
-        <form id="create-form">
+        <form id="create-form" class="collapse">
             <input id="create-form-shop" type="hidden" th:value="${name}"/>
 
             <div class="form-group row">
@@ -85,6 +87,7 @@
                 </div>
             </div>
 
+            <button type="button" class="btn btn-default" data-toggle="collapse">cancel</button>
             <button id="bth-create" type="submit" class="btn btn-default">create</button>
 
         </form>
@@ -120,15 +123,6 @@
                 </tbody>
             </table>
         </div>
-
-    </div>
-
-    <div id="create-area" class="collapse">
-
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui. </p>
-
 
     </div>
 
