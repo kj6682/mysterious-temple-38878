@@ -6,14 +6,14 @@ $(document).ready(function () {
     $("#orders-area").hide();
 
     $(document).on("click", '.js-about', function(event) {
-        event.stopPropagation();
+        event.preventDefault();
         $("#caption-area").show();
         $("#products-area").hide();
         $("#orders-area").hide();
     });
 
     $(document).on("click", '.js-list-products', function(event) {
-        event.stopPropagation();
+        event.preventDefault();
         $("#caption-area").hide();
         $("#products-area").show();
         $("#orders-area").hide();
@@ -21,7 +21,7 @@ $(document).ready(function () {
     });
 
     $(document).on("click", '.js-list-orders', function(event) {
-        event.stopPropagation();
+        event.preventDefault();
         $("#caption-area").hide();
         $("#products-area").hide();
         $("#orders-area").show();
