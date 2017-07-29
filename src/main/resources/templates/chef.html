@@ -23,6 +23,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+                <li><a href="#" class="js-about" th:text="${#strings.toUpperCase(name)}">about</a></li>
                 <li><a href="#" class="js-list-products">product</a></li>
                 <li><a href="#" class="js-list-orders">orders</a></li>
             </ul>
@@ -30,65 +31,83 @@
     </div>
 </nav>
 
-<div class="container">
-    <div>
-        <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
-        <p>The chef can manage products (create new products, modify existing products and delete obsolete products).
-        The chef can also manage all the orders. These actions include the creation of orders, the evolution of orders and the
-        delete of orders. In other words the Chef has supreme power on all the objects of this application.</p>
-    </div>
-    <div id="error-area"></div>
-</div>
 
 <div class="container" style="min-height: 500px">
 
+    <div id="caption-area">
+        <div class="jumbotron">
+            <h1 th:text="'Welcome ' + ${#strings.toUpperCase(name)}"/>
+            <h3>an administrator for all orders</h3>
+        </div>
+        <div>
+            <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
+            <p>This is the chef workstation </p>
+            <p>The chef can manage products (create new products, modify existing products and delete obsolete products).
+                The chef can also manage all the orders. These actions include the creation of orders, the evolution of orders and the
+                delete of orders. In other words the Chef has supreme power on all the objects of this application.</p>
+        </div>
+    </div>
+
+    <div id="error-area"></div>
+
     <div id="products-area">
+        <div>
+            <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
+            <h4 th:text="'Browse catalog and create orders for the ' +${#strings.toUpperCase(name)}"/>
+            <p>This is the product area, the place where you can list the product catalog
+                and select a product to create, modify or destroy a product.</p>
+        </div>
+
         <div id="products" class="panel-body">
 
         </div>
     </div>
 
     <div id="orders-area">
+        <div>
+            <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
+            <h4 th:text="'List orders for the ' +${#strings.toUpperCase(name)}"/>
+            <p>This is the orders area, the place where you can manage the orders.</p>
+            <p>When you are finished treating an order, you can make it evolve, or</p>
+            <p>if you are not happy with one of them, you can delete it by selecting its button.</p>
+        </div>
 
-        <a href="#create-form" class="btn btn-default" data-toggle="collapse">create new order</a>
-
-        <form id="create-form" class="collapse">
-            <input id="create-form-shop" type="hidden" th:value="${name}"/>
+        <form id="create-order-form" class="">
+            <input id="create-order-form-shop" type="hidden" th:value="${name}"/>
 
             <div class="form-group row">
-                <label for="create-form-product" class="col-sm-2 col-form-label"> your cakes </label>
+                <label for="create-order-form-product" class="col-sm-2 col-form-label"> your cakes </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="create-form-product" placeholder="product"/>
+                    <input type="text" class="form-control" id="create-order-form-product" placeholder="product"/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="create-form-quantity" class="col-sm-2 col-form-label"> quantity </label>
+                <label for="create-order-form-quantity" class="col-sm-2 col-form-label"> quantity </label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="number" value="1" id="create-form-quantity"/>
+                    <input class="form-control" type="number" value="1" id="create-order-form-quantity"/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="create-form-message" class="col-sm-2 col-form-label"> message </label>
+                <label for="create-order-form-message" class="col-sm-2 col-form-label"> message </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="create-form-message" placeholder="message"
+                    <input type="text" class="form-control" id="create-order-form-message" placeholder="message"
                            th:value="'order of ' + ${name}"/>
                 </div>
             </div>
 
-            <input id="create-form-createdOn" type="hidden" th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
+            <input id="create-order-form-createdOn" type="hidden" th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
 
             <div class="form-group row">
-                <label for="create-form-dueOn" class="col-sm-2 col-form-label"> wished execution date </label>
+                <label for="create-order-form-dueOn" class="col-sm-2 col-form-label"> wished execution date </label>
                 <div class="col-sm-10">
                     <input class="form-control" type="date" th:value="${#temporals.format(tomorrow, 'yyyy-MM-dd')}"
-                           id="create-form-dueOn"/>
+                           id="create-order-form-dueOn"/>
                 </div>
             </div>
 
-            <button type="button" class="btn btn-default" data-toggle="collapse">cancel</button>
-            <button id="bth-create" type="submit" class="btn btn-default">create</button>
+            <button id="bth-create" type="submit" class="btn btn-default js-create-order">create</button>
 
         </form>
 
@@ -100,7 +119,7 @@
                     </button>
                     <button id="bth-search" type="submit" class="btn btn-default js-list-orders">search</button>
                 </div>
-                <input id="search-orders-form-shopname" class="form-control" th:value="${name}"/>
+                <input id="search-orders-form-shopname" class="form-control" th:value="all"/>
             </div>
         </form>
 

@@ -11,7 +11,7 @@ body {
     background-color: #f5f5f5;
 }
 
-#orders-area-not-yet{
+#create-order-form{
     border-style: groove;
     border-spacing: 2em .2em;
     margin: 20px auto;

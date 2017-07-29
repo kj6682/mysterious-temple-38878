@@ -1,9 +1,9 @@
-
 $(document).ready(function () {
 
-    $("#caption-area").show();
-    $("#products-area").hide();
+    $("#caption-area").hide();
+    $("#products-area").show();
     $("#orders-area").hide();
+    list_products();
 
     $(document).on("click", '.js-about', function(event) {
         event.preventDefault();
@@ -29,21 +29,25 @@ $(document).ready(function () {
     });
 
     $(document).on("click", '.js-create-order', function(event) {
+        event.preventDefault();
         create_order();
         $("#create-order-modal").modal('toggle');
     });
 
     $(document).on("click", '.js-delete-order', function(event) {
+        event.preventDefault();
         var orderid = event.target.getAttribute("orderid");
         delete_order(orderid);
     });
 
     $(document).on("click", '.js-validate-order', function(event) {
+        event.preventDefault();
         var orderid = event.target.getAttribute("orderid");
         validate_order(orderid);
     });
 
     $(document).on("click", '.js-select-product', function(event) {
+        event.preventDefault();
         $("#create-order-modal-form-product").val($(this).attr('id'));
         $("#create-order-modal-form-message").val($(this).find('h4').text().trim());
     });

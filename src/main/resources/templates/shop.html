@@ -125,12 +125,11 @@
         <div>
             <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
             <h4 th:text="'List orders for the ' +${#strings.toUpperCase(name)} + ' shop'"/>
-            <p>This is the orders area, the place where you can list the orders,
-                even those of the other shops (use all to see all of them together).</p>
+            <p>This is the orders area, the place where you can list the orders.</p>
             <p>If you are not happy with one order, you can delete it by selecting its  button.</p>
         </div>
 
-        <form id="search-orders-form" class="form-horizontal">
+        <form id="search-orders-form" class="form-horizontal invisible">
             <div class="input-group">
                 <div class="input-group-btn">
                     <button type="button" class="btn btn-default" aria-label="Help">
