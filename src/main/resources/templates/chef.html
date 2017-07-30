@@ -53,8 +53,7 @@
     <div id="products-area">
         <div>
             <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
-            <h4 th:text="'Browse catalog and create orders for the ' +${#strings.toUpperCase(name)}"/>
-            <p>This is the product area, the place where you can list the product catalog
+            <p class="lead">This is the product area, the place where you can list the product catalog
                 and select a product to create, modify or destroy a product.</p>
         </div>
 
@@ -66,82 +65,101 @@
     <div id="orders-area">
         <div>
             <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
-            <h4 th:text="'List orders for the ' +${#strings.toUpperCase(name)}"/>
-            <p>This is the orders area, the place where you can manage the orders.</p>
+            <p class="lead">This is the orders area, the place where you can manage the orders.</p>
             <p>When you are finished treating an order, you can make it evolve, or</p>
             <p>if you are not happy with one of them, you can delete it by selecting its button.</p>
         </div>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Create a new Order</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <form id="create-order-form" class="">
+                        <input id="create-order-form-shop" type="hidden" th:value="${name}"/>
 
-        <form id="create-order-form" class="">
-            <input id="create-order-form-shop" type="hidden" th:value="${name}"/>
+                        <div class="form-group row">
+                            <label for="create-order-form-product" class="col-sm-2 col-form-label"> your cakes </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="create-order-form-product" placeholder="product"/>
+                            </div>
+                        </div>
 
-            <div class="form-group row">
-                <label for="create-order-form-product" class="col-sm-2 col-form-label"> your cakes </label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="create-order-form-product" placeholder="product"/>
+                        <div class="form-group row">
+                            <label for="create-order-form-quantity" class="col-sm-2 col-form-label"> quantity </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" value="1" id="create-order-form-quantity"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="create-order-form-message" class="col-sm-2 col-form-label"> message </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="create-order-form-message" placeholder="message"
+                                       th:value="'order of ' + ${name}"/>
+                            </div>
+                        </div>
+
+                        <input id="create-order-form-createdOn" type="hidden" th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
+
+                        <div class="form-group row">
+                            <label for="create-order-form-dueOn" class="col-sm-2 col-form-label"> wished execution date </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="date" th:value="${#temporals.format(tomorrow, 'yyyy-MM-dd')}"
+                                       id="create-order-form-dueOn"/>
+                            </div>
+                        </div>
+
+                        <button id="bth-create" type="submit" class="btn btn-default js-create-order">create</button>
+
+                    </form>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">List or search for orders</a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse in">
+                    <form id="search-orders-form" class="form-horizontal">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default" aria-label="Help">
+                                    <span class="glyphicon glyphicon-question-sign"></span>
+                                </button>
+                                <button id="bth-search" type="submit" class="btn btn-default js-list-orders">search</button>
+                            </div>
+                            <input id="search-orders-form-shopname" class="form-control" th:value="all"/>
+                        </div>
+                    </form>
 
-            <div class="form-group row">
-                <label for="create-order-form-quantity" class="col-sm-2 col-form-label"> quantity </label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="number" value="1" id="create-order-form-quantity"/>
+                    <div id="orders" class="table-responsive">
+                        <table id="orders-table" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>shop</th>
+                                <th>product</th>
+                                <th>quantity</th>
+                                <th>message</th>
+                                <th>createdOn</th>
+                                <th>dueOn</th>
+                                <th>status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="orders-table-body">
+                            <!-- product orders go here -->
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label for="create-order-form-message" class="col-sm-2 col-form-label"> message </label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="create-order-form-message" placeholder="message"
-                           th:value="'order of ' + ${name}"/>
-                </div>
-            </div>
-
-            <input id="create-order-form-createdOn" type="hidden" th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
-
-            <div class="form-group row">
-                <label for="create-order-form-dueOn" class="col-sm-2 col-form-label"> wished execution date </label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="date" th:value="${#temporals.format(tomorrow, 'yyyy-MM-dd')}"
-                           id="create-order-form-dueOn"/>
-                </div>
-            </div>
-
-            <button id="bth-create" type="submit" class="btn btn-default js-create-order">create</button>
-
-        </form>
-
-        <form id="search-orders-form" class="form-horizontal">
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default" aria-label="Help">
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                    </button>
-                    <button id="bth-search" type="submit" class="btn btn-default js-list-orders">search</button>
-                </div>
-                <input id="search-orders-form-shopname" class="form-control" th:value="all"/>
-            </div>
-        </form>
-
-        <div id="orders" class="table-responsive">
-            <table id="orders-table" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>shop</th>
-                    <th>product</th>
-                    <th>quantity</th>
-                    <th>message</th>
-                    <th>createdOn</th>
-                    <th>dueOn</th>
-                    <th>status</th>
-                </tr>
-                </thead>
-                <tbody id="orders-table-body">
-                <!-- product orders go here -->
-                </tbody>
-            </table>
         </div>
+
 
     </div>
 
