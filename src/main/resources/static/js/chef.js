@@ -12,14 +12,6 @@ $(document).ready(function () {
         $("#orders-area").hide();
     });
 
-    $(document).on("click", '.js-list-products', function(event) {
-        event.preventDefault();
-        $("#caption-area").hide();
-        $("#products-area").show();
-        $("#orders-area").hide();
-        list_products();
-    });
-
     $(document).on("click", '.js-list-orders', function(event) {
         event.preventDefault();
         $("#caption-area").hide();
@@ -46,29 +38,43 @@ $(document).ready(function () {
         validate_order(orderid);
     });
 
-    $(document).on("click", '.js-select-product', function(event) {
+    $(document).on("click", '.js-list-products', function(event) {
         event.preventDefault();
-        $("#edit-product-modal-form-name").val($(this).find('h3').text().trim());
-        $("#edit-product-modal-form-label").val($(this).find('h4').text().trim());
-
-        $("#delete-product-modal-form-name").val($(this).find('h3').text().trim());
-        $("#delete-product-modal-form-label").val($(this).find('h4').text().trim());
-
+        $("#caption-area").hide();
+        $("#products-area").show();
+        $("#orders-area").hide();
+        list_products();
     });
 
     $(document).on("click", '.js-create-product', function(event) {
         event.preventDefault();
         create_product();
     });
+
     $(document).on("click", '.js-edit-product', function(event) {
         event.preventDefault();
         update_product();
         $("#edit-product-modal").modal('toggle');
     });
 
+    $(document).on("click", '.js-select-product', function(event) {
+        event.preventDefault();
+
+        console.log(event);
+        console.log(event.target);
+
+        $("#delete-product-modal-form-id").val($(this).closest("tr").find("td:eq(0)").text().trim());
+        $("#delete-product-modal-form-name").val($(this).closest("tr").find("td:eq(1)").text().trim());
+        $("#delete-product-modal-form-label").val($(this).closest("tr").find("td:eq(2)").text().trim());
+    });
+
     $(document).on("click", '.js-delete-product', function(event) {
         event.preventDefault();
-        delete_product();
+
+        var productid = $("#delete-product-modal-form-id").val();
+
+        delete_product(productid);
+
         $("#delete-product-modal").modal('toggle');
     });
 });
@@ -151,7 +157,7 @@ function list_orders() {
 
             $.each(data, function (i, item) {
 
-                trHTML += '<tr id="tr'+ data[i].id + '">'+
+                trHTML += '<tr id="tr'+ data[i].id + '" class="js-select-product">'+
                     '<td>' + data[i].id + '</td><td>' + data[i].shop + '</td>'+
                     '<td>' + data[i].product + '</td><td>' + data[i].quantity + '</td>'+
                     '<td>' + data[i].message + '</td><td>' + data[i].created + '</td>'+
@@ -273,24 +279,20 @@ function list_products(){
 
             var trHTML = '';
 
-            $.each(data, function (i, item) {
-                trHTML += '<div id="' + data[i].id + '" class="product panel panel-default js-select-product">'+
-                    '<div class="panel-body">'+
-                    '<h6>' + data[i].id + '</h6>'+
-                    '<img src="/img/rocket.png" class="small-img" align="left"/>'+
-                    '<h3>' + data[i].name + '</h3>'+
-                    '<h4>' + data[i].label + '</h4>'+
-                    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#delete-product-modal" style="float: right;">'+
-                    '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'+
-                    '</button>'+
-                    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#edit-product-modal" style="float: right;">'+
-                    '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>'+
-                    '</button>'+
-                    '</div></div>';
 
+            $.each(data, function (i, item) {
+
+                trHTML += '<tr id="tr'+ data[i].id + '">'+
+                    '<td>' + data[i].id + '</td><td>' + data[i].name + '</td>'+
+                    '<td>' + data[i].label + '</td><td>' + data[i].created + '</td>'+
+                    '<td>' + data[i].status + '</td>' +
+                    '<td><button type="button" class="btn btn-default glyphicon glyphicon-pencil" data-toggle="modal" data-target="#edit-product-modal" productid=' + data[i].id + '></button></td>'+
+                    '<td><button type="button" class="btn btn-default glyphicon glyphicon-remove-circle" data-toggle="modal" data-target="#delete-product-modal"  productid=' + data[i].id + '></button></td>'+
+                    +'</tr>';
             });
 
-            $('#products').html(trHTML);
+
+            $('#products-table-body').html(trHTML);
 
             console.log("SUCCESS : ", data);
 
@@ -354,6 +356,27 @@ function update_product(){
     alert ("update ciccio");
 }
 
-function delete_product(){
+function delete_product(productid){
     alert ("delete ciccio");
+
+    $.ajax({
+        type: "DELETE",
+        contentType: "application/json",
+        url: "/api/products/" + productid ,
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+            /* nothing to do :
+             actually a cod 200 is interpreted as error
+             and swagger says I should receive a 204
+             ...pb jQuery?
+             */
+        },
+        error: function (e) {
+            $('#tr'+orderid).find("td").remove();
+
+        }
+    });
 }

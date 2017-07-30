@@ -107,7 +107,7 @@
                             </div>
                         </div>
 
-                        <button id="bth-create" type="submit" class="btn btn-default js-create-order">create</button>
+                        <button id="bth-create" type="submit" class="btn btn-default js-create-order" data-toggle="collapse" data-parent="#order-accordion" href="#collapse1" s>create</button>
 
                     </form>
                 </div>
@@ -214,6 +214,14 @@
                         <p>Are you sure you want to delete this product?</p>
                         <form id="delete-product-modal-form">
                             <div class="form-group row">
+                                <label for="delete-product-modal-form-id" class="col-sm-2 col-form-label">
+                                    product id </label>
+                                <div class="col-sm-10">
+                                    <input id="delete-product-modal-form-id" type="text" class="form-control"
+                                           placeholder="product" readonly="readonly"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="delete-product-modal-form-name" class="col-sm-2 col-form-label">
                                     product name </label>
                                 <div class="col-sm-10">
@@ -271,7 +279,7 @@
                                th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
 
 
-                        <button id="bth-create-product" type="submit" class="btn btn-default js-create-product">ok</button>
+                        <button id="bth-create-product" type="submit" class="btn btn-default js-create-product" data-toggle="collapse" data-parent="#product-accordion" href="#collapse3">create</button>
 
                     </form>
                 </div>
@@ -297,9 +305,25 @@
                         </div>
                     </form>
 
-                    <div id="products" class="panel-body">
-
+                    <div id="products" class="table-responsive">
+                        <table id="products-table" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>name</th>
+                                <th>label</th>
+                                <th>createdOn</th>
+                                <th>status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                            <!-- product orders go here -->
+                            </tbody>
+                        </table>
                     </div>
+
+
+                </div>
 
                 </div>
             </div>

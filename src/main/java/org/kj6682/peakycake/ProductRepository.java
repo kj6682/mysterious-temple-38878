@@ -14,5 +14,6 @@ interface ProductRepository extends Repository<Product, Long> {
 
     Product save(Product order);
 
+    void delete(Long id);
 
 }
