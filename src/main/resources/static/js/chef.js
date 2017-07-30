@@ -228,61 +228,60 @@ function delete_order(orderid) {
 }
 
 function list_products(){
-    var html = '<div id="cake1" class="product panel panel-default js-select-product">'+
-        '<div class="panel-body">'+
-        '<img src="/img/rocket.png" class="small-img" align="left"/>'+
-        '<h3>cake1</h3>'+
-        '<h4>This is the message for the supreme product #1</h4>'+
-    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#create-order-modal" style="float: right;">'+
-        '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'+
-        '</button>'+
-        '</div>'+
-        '</div>'+
 
-        '<div id="cake2" class="product panel panel-default js-select-product">'+
-        '<div class="panel-body">'+
-        '<img src="/img/rocket.png" class="small-img" align="left"/>'+
-        '<h3>product 2</h3>'+
-    '<h4>This is the message for the supreme product #2</h4>'+
-    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#create-order-modal" style="float: right;">'+
-        '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'+
-        '</button>'+
-        '</div>'+
-        '</div>'+
+    var DEBUG_json = false;
 
-        '<div id="cake3" class="product panel panel-default js-select-product">'+
-        '<div class="panel-body">'+
-        '<img src="/img/rocket.png" class="small-img" align="left"/>'+
-        '<h3>product 3</h3>'+
-    '<h4>This is the message for the supreme product #3</h4>'+
-    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#create-order-modal" style="float: right;">'+
-        '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'+
-        '</button>'+
-        '</div>'+
-        '</div>'+
+    var search = {};
+    search["shop"] = $("#search-orders-form-shopname").val();
+    if(search.shop === "all"){
+        search["shop"] = "";
+    }
 
-        '<div id="cake10" class="product panel panel-default js-select-product">'+
-        '<div class="panel-body">'+
-        '<img src="/img/rocket.png" class="small-img" align="left"/>'+
-        '<h3>product 10</h3>'+
-    '<h4>This is the message for the supreme product #10</h4>'+
-    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#create-order-modal" style="float: right;">'+
-        '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'+
-        '</button>'+
-        '</div>'+
-        '</div>'+
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "/api/products",
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
 
-        '<div id="cake11" class="product panel panel-default js-select-product">'+
-        '<div class="panel-body">'+
-        '<img src="/img/rocket.png" class="small-img" align="left"/>'+
-        '<h3>product 11</h3>'+
-    '<h4>This is the message for the supreme product #11</h4>'+
-    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#create-order-modal" style="float: right;">'+
-        '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'+
-        '</button>'+
-        '</div>'+
-        '</div>'
+            if(DEBUG_json) {
+                var json = "<h4>Ajax Response</h4><pre>"
+                    + JSON.stringify(data, null, 4) + "</pre>";
+                $('#error-area').html(json);
+            }
 
-    $('#products').html(html);
+            var trHTML = '';
+
+            $.each(data, function (i, item) {
+
+                trHTML += '<div id="' + data[i].name + '" class="product panel panel-default js-select-product">'+
+                    '<div class="panel-body">'+
+                    '<img src="/img/rocket.png" class="small-img" align="left"/>'+
+                    '<h3>' + data[i].name + '</h3>'+
+                    '<h4>' + data[i].label + '</h4>'+
+                    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#create-order-modal" style="float: right;">'+
+                    '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'+
+                    '</button>'+
+                    '</div>'+
+                    '</div>';
+            });
+
+            $('#products').html(trHTML);
+
+            console.log("SUCCESS : ", data);
+
+        },
+        error: function (e) {
+
+            var json = "<h4>Ajax Response</h4><pre>"
+                + e.responseText + "</pre>";
+            $('#error-area').html(json);
+
+            console.log("ERROR : ", e);
+
+        }
+    });
 
 }
