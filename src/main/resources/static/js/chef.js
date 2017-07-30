@@ -63,6 +63,10 @@ $(document).ready(function () {
         console.log(event);
         console.log(event.target);
 
+        $("#edit-product-modal-form-id").val($(this).closest("tr").find("td:eq(0)").text().trim());
+        $("#edit-product-modal-form-name").val($(this).closest("tr").find("td:eq(1)").text().trim());
+        $("#edit-product-modal-form-label").val($(this).closest("tr").find("td:eq(2)").text().trim());
+
         $("#delete-product-modal-form-id").val($(this).closest("tr").find("td:eq(0)").text().trim());
         $("#delete-product-modal-form-name").val($(this).closest("tr").find("td:eq(1)").text().trim());
         $("#delete-product-modal-form-label").val($(this).closest("tr").find("td:eq(2)").text().trim());
@@ -157,7 +161,7 @@ function list_orders() {
 
             $.each(data, function (i, item) {
 
-                trHTML += '<tr id="tr'+ data[i].id + '" class="js-select-product">'+
+                trHTML += '<tr id="tr'+ data[i].id + '">'+
                     '<td>' + data[i].id + '</td><td>' + data[i].shop + '</td>'+
                     '<td>' + data[i].product + '</td><td>' + data[i].quantity + '</td>'+
                     '<td>' + data[i].message + '</td><td>' + data[i].created + '</td>'+
@@ -282,7 +286,7 @@ function list_products(){
 
             $.each(data, function (i, item) {
 
-                trHTML += '<tr id="tr'+ data[i].id + '">'+
+                trHTML += '<tr id="tr'+ data[i].id + '" class="js-select-product">'+
                     '<td>' + data[i].id + '</td><td>' + data[i].name + '</td>'+
                     '<td>' + data[i].label + '</td><td>' + data[i].created + '</td>'+
                     '<td>' + data[i].status + '</td>' +
