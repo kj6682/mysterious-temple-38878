@@ -20,7 +20,7 @@ public class PeakycakeApplication {
     }
 
     @Bean
-    CommandLineRunner init(OrderRepository orderRepository) {
+    CommandLineRunner initOrders(OrderRepository orderRepository) {
 
         return (evt) -> {
             Arrays.asList("blue product, red product, white product, yellow product, black product".split(",")).forEach(
@@ -42,4 +42,19 @@ public class PeakycakeApplication {
     }
 
 
+    @Bean
+    CommandLineRunner initProducts(ProductRepository productRepository) {
+
+        return (evt) -> {
+            Arrays.asList("blue product, red product, white product, yellow product, black product".split(",")).forEach(
+                    cake -> {
+                        Product p1 = new Product(cake, "this is the " + cake, LocalDate.now(), "VALID");
+
+                        productRepository.save(p1);
+
+                    }
+            );
+
+        };
+    }
 }
