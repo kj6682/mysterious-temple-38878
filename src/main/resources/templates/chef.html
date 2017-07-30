@@ -42,8 +42,10 @@
         <div>
             <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
             <p>This is the chef workstation </p>
-            <p>The chef can manage products (create new products, modify existing products and delete obsolete products).
-                The chef can also manage all the orders. These actions include the creation of orders, the evolution of orders and the
+            <p>The chef can manage products (create new products, modify existing products and delete obsolete
+                products).
+                The chef can also manage all the orders. These actions include the creation of orders, the evolution of
+                orders and the
                 delete of orders. In other words the Chef has supreme power on all the objects of this application.</p>
         </div>
     </div>
@@ -57,9 +59,109 @@
                 and select a product to create, modify or destroy a product.</p>
         </div>
 
-        <div id="products" class="panel-body">
+        <div class="panel-group" id="product-accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#product-accordion" href="#collapse3">Create a new
+                            Product</a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <form id="create-product-form" class="">
+                        <input id="create-product-form-shop" type="hidden" th:value="${name}"/>
 
+                        <div class="form-group row">
+                            <label for="create-product-form-product" class="col-sm-2 col-form-label"> your
+                                cakes </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="create-product-form-product"
+                                       placeholder="product"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="create-product-form-quantity" class="col-sm-2 col-form-label"> quantity </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" value="1" id="create-product-form-quantity"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="create-product-form-message" class="col-sm-2 col-form-label"> message </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="create-product-form-message"
+                                       placeholder="message"
+                                       th:value="'order of ' + ${name}"/>
+                            </div>
+                        </div>
+
+                        <input id="create-product-form-createdOn" type="hidden"
+                               th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
+
+                        <div class="form-group row">
+                            <label for="create-order-form-dueOn" class="col-sm-2 col-form-label"> wished execution
+                                date </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="date"
+                                       th:value="${#temporals.format(tomorrow, 'yyyy-MM-dd')}"
+                                       id="create-product-form-dueOn"/>
+                            </div>
+                        </div>
+
+                        <button id="bth-create-product" type="submit" class="btn btn-default js-create-product">create
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#product-accordion" href="#collapse4">List or search for
+                            products</a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse in">
+                    <form id="search-product-form" class="form-horizontal">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default" aria-label="Help">
+                                    <span class="glyphicon glyphicon-question-sign"></span>
+                                </button>
+                                <button id="bth-search-product" type="submit" class="btn btn-default js-list-orders">
+                                    search
+                                </button>
+                            </div>
+                            <input id="search-products-form-shopname" class="form-control" th:value="all"/>
+                        </div>
+                    </form>
+
+                    <div id="products" class="table-responsive">
+                        <table id="products-table" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>shop</th>
+                                <th>product</th>
+                                <th>quantity</th>
+                                <th>message</th>
+                                <th>createdOn</th>
+                                <th>dueOn</th>
+                                <th>status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                            <!-- product go here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
         </div>
+
+
     </div>
 
     <div id="orders-area">
@@ -83,7 +185,8 @@
                         <div class="form-group row">
                             <label for="create-order-form-product" class="col-sm-2 col-form-label"> your cakes </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="create-order-form-product" placeholder="product"/>
+                                <input type="text" class="form-control" id="create-order-form-product"
+                                       placeholder="product"/>
                             </div>
                         </div>
 
@@ -97,17 +200,21 @@
                         <div class="form-group row">
                             <label for="create-order-form-message" class="col-sm-2 col-form-label"> message </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="create-order-form-message" placeholder="message"
+                                <input type="text" class="form-control" id="create-order-form-message"
+                                       placeholder="message"
                                        th:value="'order of ' + ${name}"/>
                             </div>
                         </div>
 
-                        <input id="create-order-form-createdOn" type="hidden" th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
+                        <input id="create-order-form-createdOn" type="hidden"
+                               th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
 
                         <div class="form-group row">
-                            <label for="create-order-form-dueOn" class="col-sm-2 col-form-label"> wished execution date </label>
+                            <label for="create-order-form-dueOn" class="col-sm-2 col-form-label"> wished execution
+                                date </label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="date" th:value="${#temporals.format(tomorrow, 'yyyy-MM-dd')}"
+                                <input class="form-control" type="date"
+                                       th:value="${#temporals.format(tomorrow, 'yyyy-MM-dd')}"
                                        id="create-order-form-dueOn"/>
                             </div>
                         </div>
@@ -120,7 +227,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">List or search for orders</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">List or search for
+                            orders</a>
                     </h4>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse in">
@@ -130,7 +238,8 @@
                                 <button type="button" class="btn btn-default" aria-label="Help">
                                     <span class="glyphicon glyphicon-question-sign"></span>
                                 </button>
-                                <button id="bth-search" type="submit" class="btn btn-default js-list-orders">search</button>
+                                <button id="bth-search" type="submit" class="btn btn-default js-list-orders">search
+                                </button>
                             </div>
                             <input id="search-orders-form-shopname" class="form-control" th:value="all"/>
                         </div>
