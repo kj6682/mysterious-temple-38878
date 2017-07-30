@@ -252,17 +252,14 @@ function list_products(){
 
             $.each(data, function (i, item) {
 
-                trHTML += '<div id="' + data[i].id + '" class="product panel panel-default js-select-product">'+
+                trHTML += '<div id="' + data[i].name + '" class="product panel panel-default js-select-product">'+
                     '<div class="panel-body">'+
                     '<h6>' + data[i].id + '</h6>'+
                     '<img src="/img/rocket.png" class="small-img" align="left"/>'+
                     '<h3>' + data[i].name + '</h3>'+
                     '<h4>' + data[i].label + '</h4>'+
-                    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#remove-product-modal" style="float: right;">'+
-                    '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'+
-                    '</button>'+
-                    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#edit-product-modal" style="float: right;">'+
-                    '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>'+
+                    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#create-order-modal" style="float: right;">'+
+                    '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'+
                     '</button>'+
                     '</div></div>';
             });

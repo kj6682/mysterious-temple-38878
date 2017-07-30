@@ -11,6 +11,7 @@ import java.util.Optional;
 interface ProductRepository extends Repository<Product, Long> {
 
     Optional<List<Product>> findAll();
+
     Product save(Product order);
 
 

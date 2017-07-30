@@ -24,8 +24,8 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="#" class="js-about" th:text="${#strings.toUpperCase(name)}">about</a></li>
-                <li><a href="#" class="js-list-products">product</a></li>
                 <li><a href="#" class="js-list-orders">orders</a></li>
+                <li><a href="#" class="js-list-products">product</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -52,118 +52,6 @@
 
     <div id="error-area"></div>
 
-    <div id="products-area">
-        <div>
-            <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
-            <p class="lead">This is the product area, the place where you can list the product catalog
-                and select a product to create, modify or destroy a product.</p>
-        </div>
-
-        <div class="panel-group" id="product-accordion">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#product-accordion" href="#collapse3">Create a new
-                            Product</a>
-                    </h4>
-                </div>
-                <div id="collapse3" class="panel-collapse collapse">
-                    <form id="create-product-form" class="">
-                        <input id="create-product-form-shop" type="hidden" th:value="${name}"/>
-
-                        <div class="form-group row">
-                            <label for="create-product-form-product" class="col-sm-2 col-form-label"> your
-                                cakes </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="create-product-form-product"
-                                       placeholder="product"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="create-product-form-quantity" class="col-sm-2 col-form-label"> quantity </label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="number" value="1" id="create-product-form-quantity"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="create-product-form-message" class="col-sm-2 col-form-label"> message </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="create-product-form-message"
-                                       placeholder="message"
-                                       th:value="'order of ' + ${name}"/>
-                            </div>
-                        </div>
-
-                        <input id="create-product-form-createdOn" type="hidden"
-                               th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
-
-                        <div class="form-group row">
-                            <label for="create-order-form-dueOn" class="col-sm-2 col-form-label"> wished execution
-                                date </label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="date"
-                                       th:value="${#temporals.format(tomorrow, 'yyyy-MM-dd')}"
-                                       id="create-product-form-dueOn"/>
-                            </div>
-                        </div>
-
-                        <button id="bth-create-product" type="submit" class="btn btn-default js-create-product">create
-                        </button>
-
-                    </form>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#product-accordion" href="#collapse4">List or search for
-                            products</a>
-                    </h4>
-                </div>
-                <div id="collapse4" class="panel-collapse collapse in">
-                    <form id="search-product-form" class="form-horizontal">
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default" aria-label="Help">
-                                    <span class="glyphicon glyphicon-question-sign"></span>
-                                </button>
-                                <button id="bth-search-product" type="submit" class="btn btn-default js-list-orders">
-                                    search
-                                </button>
-                            </div>
-                            <input id="search-products-form-shopname" class="form-control" th:value="all"/>
-                        </div>
-                    </form>
-
-                    <div id="products" class="table-responsive">
-                        <table id="products-table" class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>shop</th>
-                                <th>product</th>
-                                <th>quantity</th>
-                                <th>message</th>
-                                <th>createdOn</th>
-                                <th>dueOn</th>
-                                <th>status</th>
-                            </tr>
-                            </thead>
-                            <tbody id="products-table-body">
-                            <!-- product go here -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-
     <div id="orders-area">
         <div>
             <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
@@ -171,11 +59,11 @@
             <p>When you are finished treating an order, you can make it evolve, or</p>
             <p>if you are not happy with one of them, you can delete it by selecting its button.</p>
         </div>
-        <div class="panel-group" id="accordion">
+        <div class="panel-group" id="order-accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Create a new Order</a>
+                        <a data-toggle="collapse" data-parent="#order-accordion" href="#collapse1">Create a new Order</a>
                     </h4>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
@@ -183,7 +71,7 @@
                         <input id="create-order-form-shop" type="hidden" th:value="${name}"/>
 
                         <div class="form-group row">
-                            <label for="create-order-form-product" class="col-sm-2 col-form-label"> your cakes </label>
+                            <label for="create-order-form-product" class="col-sm-2 col-form-label"> you wish to put an order for </label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="create-order-form-product"
                                        placeholder="product"/>
@@ -227,7 +115,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">List or search for
+                        <a data-toggle="collapse" data-parent="#order-accordion" href="#collapse2">Search for
                             orders</a>
                     </h4>
                 </div>
@@ -263,6 +151,154 @@
                             <!-- product orders go here -->
                             </tbody>
                         </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div id="products-area">
+        <div>
+            <h1 th:text="${#strings.toUpperCase(name)} + ' workstation'"/>
+            <p class="lead">This is the product area, the place where you can list the product catalog
+                and select a product to create, modify or destroy a product.</p>
+        </div>
+
+        <div id="edit-product-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Product</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Use this modal box to edit your product</p>
+                        <form id="edit-product-modal-form">
+                            <div class="form-group row">
+                                <label for="edit-product-modal-form-name" class="col-sm-2 col-form-label">
+                                    product name</label>
+                                <div class="col-sm-10">
+                                    <input id="edit-product-modal-form-name" type="text" class="form-control"
+                                           placeholder="product"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="edit-product-modal-form-label" class="col-sm-2 col-form-label">
+                                    product label </label>
+                                <div class="col-sm-10">
+                                    <input id="edit-product-modal-form-label" class="form-control" type="text"
+                                           placeholder="product label"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                        <button type="submit" class="btn btn-default js-edit-product">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="delete-product-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Delete Product</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this product?</p>
+                        <form id="delete-product-modal-form">
+                            <div class="form-group row">
+                                <label for="delete-product-modal-form-name" class="col-sm-2 col-form-label">
+                                    product name </label>
+                                <div class="col-sm-10">
+                                    <input id="delete-product-modal-form-name" type="text" class="form-control"
+                                           placeholder="product" readonly="readonly"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="delete-product-modal-form-label" class="col-sm-2 col-form-label">
+                                    product label </label>
+                                <div class="col-sm-10">
+                                    <input id="delete-product-modal-form-label" class="form-control" type="text"
+                                           placeholder="product label" readonly="readonly"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                        <button type="submit" class="btn btn-default js-delete-product">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-group" id="product-accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#product-accordion" href="#collapse3">Create a new
+                            Product</a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <form id="create-product-form" class="">
+
+                        <div class="form-group row">
+                            <label for="create-product-form-name" class="col-sm-2 col-form-label"> name your product</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="create-product-form-name"
+                                       placeholder="product"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="create-product-form-label" class="col-sm-2 col-form-label"> make a product description </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="create-product-form-label"
+                                       placeholder="message"
+                                       th:value="'product created by  ' + ${name}"/>
+                            </div>
+                        </div>
+
+                        <input id="create-product-form-created" type="hidden"
+                               th:value="${#temporals.format(today, 'yyyy-MM-dd')}"/>
+
+
+                        <button id="bth-create-product" type="submit" class="btn btn-default js-create-product">ok</button>
+
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#product-accordion" href="#collapse4">Search for your products</a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse in">
+                    <form id="search-product-form" class="form-horizontal">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default" aria-label="Help">
+                                    <span class="glyphicon glyphicon-question-sign"></span>
+                                </button>
+                                <button id="bth-search-product" type="submit" class="btn btn-default js-list-products">
+                                    search
+                                </button>
+                            </div>
+                            <input id="search-products-form-shopname" class="form-control" th:value="all"/>
+                        </div>
+                    </form>
+
+                    <div id="products" class="panel-body">
+
                     </div>
 
                 </div>

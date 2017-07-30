@@ -48,10 +48,29 @@ $(document).ready(function () {
 
     $(document).on("click", '.js-select-product', function(event) {
         event.preventDefault();
-        $("#create-order-modal-form-product").val($(this).attr('id'));
-        $("#create-order-modal-form-message").val($(this).find('h4').text().trim());
+        $("#edit-product-modal-form-name").val($(this).find('h3').text().trim());
+        $("#edit-product-modal-form-label").val($(this).find('h4').text().trim());
+
+        $("#delete-product-modal-form-name").val($(this).find('h3').text().trim());
+        $("#delete-product-modal-form-label").val($(this).find('h4').text().trim());
+
     });
 
+    $(document).on("click", '.js-create-product', function(event) {
+        event.preventDefault();
+        create_product();
+    });
+    $(document).on("click", '.js-edit-product', function(event) {
+        event.preventDefault();
+        update_product();
+        $("#edit-product-modal").modal('toggle');
+    });
+
+    $(document).on("click", '.js-delete-product', function(event) {
+        event.preventDefault();
+        delete_product();
+        $("#delete-product-modal").modal('toggle');
+    });
 });
 
 function create_order() {
@@ -261,7 +280,7 @@ function list_products(){
                     '<img src="/img/rocket.png" class="small-img" align="left"/>'+
                     '<h3>' + data[i].name + '</h3>'+
                     '<h4>' + data[i].label + '</h4>'+
-                    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#remove-product-modal" style="float: right;">'+
+                    '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#delete-product-modal" style="float: right;">'+
                     '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'+
                     '</button>'+
                     '<button type="button" class="btn btn-default text-right" data-toggle="modal" data-target="#edit-product-modal" style="float: right;">'+
@@ -287,4 +306,54 @@ function list_products(){
         }
     });
 
+}
+
+function create_product() {
+
+    var DEBUG_json = false;
+
+    var product = {};
+    product["name"] = $("#create-product-form-name").val();
+    product["label"] = $("#create-product-form-label").val();
+    product["created"] = $("#create-order-form-created").val();
+    product["status"] = "NEW";
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/api/products",
+        data: JSON.stringify(product),
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+            if(DEBUG_json) {
+                var json = "<h4>Ajax Response</h4><pre>"
+                    + JSON.stringify(data, null, 4) + "</pre>";
+                $('#error-area').html(json);
+            }
+
+            console.log("SUCCESS : ", data);
+
+        },
+        error: function (e) {
+
+            var json = "<h4>Ajax Response</h4><pre>"
+                + e.responseText + "</pre>";
+            $('#error-area').html(json);
+
+            console.log("ERROR : ", e);
+
+        }
+    });
+
+}
+
+function update_product(){
+    alert ("update ciccio");
+}
+
+function delete_product(){
+    alert ("delete ciccio");
 }
