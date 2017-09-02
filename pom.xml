@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.kj6682</groupId>
-    <artifactId>peakycake</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <artifactId>mysterious-temple-38878</artifactId>
+    <version>0.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>peakycake</name>
-    <description>How to make a peaky cakes train</description>
+    <name>mysterious-temple-cake</name>
+    <description>How to make a orders</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

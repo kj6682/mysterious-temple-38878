@@ -1,4 +1,4 @@
-package org.kj6682.peakycake;
+package org.kj6682.mysterioustemple;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ class ProductController {
     }
 
     @DeleteMapping(value = "/products/{id}")
-    void deleteProduct(@PathVariable(required = true) Long id){
+    void deleteProduct(@PathVariable(required = true) Long id) {
         productRepository.delete(id);
     }
 

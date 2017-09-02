@@ -1,4 +1,4 @@
-package org.kj6682.peakycake;
+package org.kj6682.mysterioustemple;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -22,7 +22,7 @@ import java.time.LocalDate;
  */
 
 @Data
-@Entity(name = "peakyorder")
+@Entity(name = "mysterioustempleorder")
 class Order {
 
     @Id

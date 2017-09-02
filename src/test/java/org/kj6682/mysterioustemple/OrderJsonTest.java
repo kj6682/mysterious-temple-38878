@@ -1,4 +1,4 @@
-package org.kj6682.peakycake;
+package org.kj6682.mysterioustemple;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,44 +18,48 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by luigi on 12/07/2017.
- *
+ * <p>
  * TDD - use this test to define the ORDER model
- *
  */
 @RunWith(SpringRunner.class)
 @JsonTest
-public class ProductJsonTest {
+public class OrderJsonTest {
 
-    @Autowired
-    private JacksonTester<Product> json;
+    Order order;
+    File jsonFile;
 
     @MockBean
     private OrderRepository orderRepository;
 
-    Product cake;
-
-    File jsonFile;
+    @Autowired
+    private JacksonTester<Order> json;
 
     @Before
     public void setup() throws Exception{
-        cake = new Product("peaky product",
-                "peaky product customizable message",
-                LocalDate.of(2017,7,13),
-                "RUNNING");
-        jsonFile = ResourceUtils.getFile("classpath:peakycake.json");
+        order = new Order("north",
+                "product",
+                10,
+                "product customizable message",
+                LocalDate.of(2017, 7, 13),
+                LocalDate.of(2017, 8, 7),
+                "NEW");
+        jsonFile = ResourceUtils.getFile("classpath:order.json");
 
     }
+
     @Test
-    public void serialise() throws Exception{
+    public void serialise() throws Exception {
 
-        assertThat(this.json.write(cake)).isEqualTo(jsonFile);
+        assertThat(this.json.write(order)).isEqualTo(jsonFile);
+
     }
+
     @Test
     public void deserialise() throws Exception {
 
         String jsonObject = new String(Files.readAllBytes(jsonFile.toPath()));
-        Product newCake = this.json.parse(jsonObject).getObject();
-        assertThat(newCake.equals(cake));
+        Order newOrder = this.json.parse(jsonObject).getObject();
+        assertThat(newOrder.equals(order));
 
     }
 

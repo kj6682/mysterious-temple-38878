@@ -1,6 +1,6 @@
 spring:
   application:
-    name: peakycake
+    name: mysterioustempl
   jackson:
     serializazion:
       WRITE_DATES_AS_TIMESTAMPS : false

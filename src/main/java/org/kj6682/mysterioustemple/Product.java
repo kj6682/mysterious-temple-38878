@@ -1,4 +1,4 @@
-package org.kj6682.peakycake;
+package org.kj6682.mysterioustemple;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -15,9 +15,8 @@ import java.time.LocalDate;
 
 /**
  * Created by luigi on 13/07/2017.
- *
+ * <p>
  * THE model (use this in a catalog)
- *
  */
 
 @Data
@@ -40,7 +39,8 @@ class Product {
 
     private String status;
 
-    protected Product(){}
+    protected Product() {
+    }
 
     public Product(String name,
                    String label,

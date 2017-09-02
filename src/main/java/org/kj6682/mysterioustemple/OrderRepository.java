@@ -1,6 +1,5 @@
-package org.kj6682.peakycake;
+package org.kj6682.mysterioustemple;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.Repository;
 
 import java.time.LocalDate;
