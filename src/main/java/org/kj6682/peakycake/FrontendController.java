@@ -19,6 +19,12 @@ public class FrontendController {
         return "peakycake";
     }
 
+    @RequestMapping("/")
+    public String defaultModel(@RequestParam(value="name", required=false, defaultValue="World!") String name, Model model) {
+        model.addAttribute("name", name);
+        return "peakycake";
+    }
+
     @RequestMapping("/chef")
     public String chef(@RequestParam(value="name", required=false, defaultValue="Chef") String name, Model model) {
         model.addAttribute("name", name);
