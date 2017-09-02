@@ -32,6 +32,9 @@ public class ProductJsonTest {
     @MockBean
     private OrderRepository orderRepository;
 
+    @MockBean
+    private ProductRepository productRepository;
+
     Product cake;
 
     File jsonFile;
@@ -42,7 +45,7 @@ public class ProductJsonTest {
                 "product customizable message",
                 LocalDate.of(2017,7,13),
                 "RUNNING");
-        jsonFile = ResourceUtils.getFile("classpath:mysterioustempl.json");
+        jsonFile = ResourceUtils.getFile("classpath:peakycake.json");
 
     }
     @Test

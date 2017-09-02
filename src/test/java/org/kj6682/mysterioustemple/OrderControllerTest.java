@@ -54,6 +54,9 @@ public class OrderControllerTest {
     @MockBean
     private OrderRepository orderRepository;
 
+    @MockBean
+    private ProductRepository productRepository;
+
     private List<Order> orderList;
 
     @Before

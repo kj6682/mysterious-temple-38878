@@ -31,6 +31,9 @@ public class OrderJsonTest {
     @MockBean
     private OrderRepository orderRepository;
 
+    @MockBean
+    private ProductRepository productRepository;
+
     @Autowired
     private JacksonTester<Order> json;
 
