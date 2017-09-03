@@ -4,6 +4,7 @@
 <head>
     <title>the CHEF workstation</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <link href="/css/main.css" rel="stylesheet"/>
 </head>
@@ -115,17 +116,16 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#order-accordion" href="#collapse2">Search for
-                            orders</a>
+                        <a data-toggle="collapse" data-parent="#order-accordion" href="#collapse2">Search for orders</a>
                     </h4>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse in">
                     <form id="search-orders-form" class="form-horizontal">
                         <div class="input-group">
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-default" aria-label="Help">
-                                    <span class="glyphicon glyphicon-question-sign"></span>
-                                </button>
+                                <a href="/api/orders/orders.csv" type="button" class="btn btn-default" aria-label="Help">
+                                    <span class="glyphicon glyphicon-download"></span>
+                                </a>
                                 <button id="bth-search" type="submit" class="btn btn-default js-list-orders">search
                                 </button>
                             </div>
@@ -154,6 +154,7 @@
                     </div>
 
                 </div>
+                <div>You can also <a href="/api/orders/orders.csv">download</a> the complete list of orders as .csv</div>
             </div>
         </div>
 
