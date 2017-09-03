@@ -1,6 +1,10 @@
 spring:
   application:
     name: mysterioustemple
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
   jackson:
     serializazion:
       WRITE_DATES_AS_TIMESTAMPS : false
@@ -8,21 +12,13 @@ spring:
     cache: false
 ---
 spring:
-  profiles: postgresql-create
-  datasource:
-    url: ${JDBC_DATABASE_URL}
-    username: ${JDBC_DATABASE_USERNAME}
-    password: ${JDBC_DATABASE_PASSWORD}
+  profiles: create
   jpa:
     hibernate:
       ddl-auto: create
 ---
 spring:
-  profiles: postgresql-validate
-  datasource:
-    url: ${JDBC_DATABASE_URL}
-    username: ${JDBC_DATABASE_USERNAME}
-    password: ${JDBC_DATABASE_PASSWORD}
+  profiles: validate
   jpa:
     hibernate:
       ddl-auto: validate

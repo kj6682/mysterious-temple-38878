@@ -16,7 +16,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Profile({"postgresql-create", "h2"})
+    @Profile({"create"})
     @Bean
     CommandLineRunner initOrders(OrderRepository orderRepository) {
 
@@ -39,7 +39,7 @@ public class Application {
         };
     }
 
-    @Profile({"postgresql-create", "h2"})
+    @Profile({"create"})
     @Bean
     CommandLineRunner initProducts(ProductRepository productRepository) {
 

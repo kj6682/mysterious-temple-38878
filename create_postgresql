@@ -1,9 +1,0 @@
-#!/bin/sh
-
-export JAVA_OPTS="-Dspring.profiles.active=postgresql-create"
-export PORT="-Dserver.port=8080"
-export DATABASE_URL="-Dspring.datasource.url=jdbc:postgresql://localhost:5432/cake"
-
-mvn clean install -P postgresql
-java $PORT $JAVA_OPTS $DATABASE_URL -jar target/mysterious-temple-38878-0.0.3-SNAPSHOT.jar
-
