@@ -1,8 +1,31 @@
 spring:
   application:
-    name: mysterioustempl
+    name: mysterioustemple
   jackson:
     serializazion:
       WRITE_DATES_AS_TIMESTAMPS : false
   thymeleaf:
     cache: false
+---
+spring:
+  profiles: h2
+---
+spring:
+  profiles: postgresql-create
+  datasource:
+    username: jlg
+    password: peakyblinders
+    platform: POSTGRESQL
+  jpa:
+    hibernate:
+      ddl-auto: create
+---
+spring:
+  profiles: postgresql-validate
+  datasource:
+    username: jlg
+    password: peakyblinders
+    platform: POSTGRESQL
+  jpa:
+    hibernate:
+      ddl-auto: validate

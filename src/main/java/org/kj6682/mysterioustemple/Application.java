@@ -4,17 +4,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 
 @SpringBootApplication
-public class MysteriousTempleApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(MysteriousTempleApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
+    @Profile({"postgresql-create", "h2"})
     @Bean
     CommandLineRunner initOrders(OrderRepository orderRepository) {
 
@@ -37,7 +39,7 @@ public class MysteriousTempleApplication {
         };
     }
 
-
+    @Profile({"postgresql-create", "h2"})
     @Bean
     CommandLineRunner initProducts(ProductRepository productRepository) {
 
