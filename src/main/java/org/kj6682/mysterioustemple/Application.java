@@ -21,7 +21,7 @@ public class Application {
     CommandLineRunner initOrders(OrderRepository orderRepository) {
 
         return (evt) -> {
-            Arrays.asList("blue product, red product, white product, yellow product, black product".split(",")).forEach(
+            Arrays.asList("blue product,red product,white product,yellow product,black product".split(",")).forEach(
                     cake -> {
                         Order o1 = new Order("north", cake, 10, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");
                         Order o2 = new Order("south", cake, 10, "message", LocalDate.now(), LocalDate.now().plusDays(10), "NEW");

@@ -84,4 +84,21 @@ class Order {
         this.status = status;
     }
 
+    static String csvHeader(){
+        return "ID;SHOP;PRODUCT;QUANTITY;MESSAGE;CREATED;DUE;STATUS\n";
+    }
+
+    String asCsv() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(id).append(';');
+        sb.append(shop).append(';');
+        sb.append(product).append(';');
+        sb.append(quantity).append(';');
+        sb.append(message).append(';');
+        sb.append(created).append(';');
+        sb.append(due).append(';');
+        sb.append(status).append(';');
+        sb.append("\n");
+        return sb.toString();
+    }
 }// :)

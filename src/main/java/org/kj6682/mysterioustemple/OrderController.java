@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +21,18 @@ class OrderController {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @RequestMapping(value = "/orders/orders.csv")
+    public void listOrdersAsCSV(HttpServletResponse response) throws IOException{
+        response.setContentType("text/csv; charset=utf-8");
+
+        List<Order> orders = orderRepository.findAll().get();
+        StringBuilder sb = new StringBuilder(Order.csvHeader());
+        for(Order order : orders){
+            sb.append(order.asCsv());
+        }
+        response.getWriter().print(sb.toString());
+    }
 
     @GetMapping("/orders")
     List<Order> listOrders() {
