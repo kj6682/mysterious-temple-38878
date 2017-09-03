@@ -8,24 +8,8 @@ spring:
     cache: false
 ---
 spring:
-  profiles: h2
----
-spring:
   profiles: postgresql-create
   datasource:
-    username: jlg
-    password: peakyblinders
-    platform: POSTGRESQL
-  jpa:
-    hibernate:
-      ddl-auto: create
----
-spring:
-  profiles: postgresql-validate
-  datasource:
-    username: jlg
-    password: peakyblinders
-    platform: POSTGRESQL
-  jpa:
-    hibernate:
-      ddl-auto: validate
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
