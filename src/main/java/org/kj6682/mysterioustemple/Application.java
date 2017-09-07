@@ -16,7 +16,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Profile({"create", "h2"})
+    @Profile({"ddl-create", "h2"})
     @Bean
     CommandLineRunner initOrders(OrderRepository orderRepository) {
 
@@ -39,7 +39,7 @@ public class Application {
         };
     }
 
-    @Profile({"create", "h2"})
+    @Profile({"ddl-create", "h2"})
     @Bean
     CommandLineRunner initProducts(ProductRepository productRepository) {
 

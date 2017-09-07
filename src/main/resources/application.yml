@@ -11,21 +11,20 @@ spring:
   profiles: h2
 ---
 spring:
-  profiles: create
+  profiles: postgresql
   datasource:
       username: jlg
       password: peakyblinders
       platform: POSTGRESQL
+---
+spring:
+  profiles: ddl-create
   jpa:
     hibernate:
       ddl-auto: create
 ---
 spring:
-  profiles: validate
-  datasource:
-    username: jlg
-    password: peakyblinders
-    platform: POSTGRESQL
+  profiles: ddl-validate
   jpa:
     hibernate:
       ddl-auto: validate
